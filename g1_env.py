@@ -93,15 +93,15 @@ G1_STAND_POSE = np.array(
 # ─── PD gains ─────────────────────────────────────────────────────────────────
 
 KP = np.array([
-    200,  80,  80,    # left  hip p/r/y
-    200,  80,  40,    # left  knee, ankle p/r
-    200,  80,  80,    # right hip p/r/y
-    200,  80,  40,    # right knee, ankle p/r
-    100,  60,  60,    # waist y/r/p
-     80,  60,  40,    # left  shoulder p/r/y
-     60,  20,  20, 20,# left  elbow + wrist r/p/y
-     80,  60,  40,    # right shoulder p/r/y
-     60,  20,  20, 20,# right elbow + wrist r/p/y
+    150,  60,  60,    # left  hip p/r/y
+    150,  60,  30,    # left  knee, ankle p/r
+    150,  60,  60,    # right hip p/r/y
+    150,  60,  30,    # right knee, ankle p/r
+     80,  40,  40,    # waist y/r/p
+     60,  40,  30,    # left  shoulder p/r/y
+     40,  15,  15, 15,# left  elbow + wrist r/p/y
+     60,  40,  30,    # right shoulder p/r/y
+     40,  15,  15, 15,# right elbow + wrist r/p/y
 ], dtype=np.float64)
 
 KD = np.array([
@@ -138,7 +138,7 @@ W_ALIVE  = 0.15   # alive bonus per step
 W_ENERGY = 0.10   # penalise torque
 
 MIN_HEIGHT = 0.45   # pelvis z [m] — below this = fell
-SIM_DT     = 0.002  # inner MuJoCo timestep  (500 Hz)
+SIM_DT     = 0.001  # inner MuJoCo timestep  (1000 Hz) — finer dt prevents NaN instability
 CTRL_HZ    = 50     # policy control frequency
 
 
