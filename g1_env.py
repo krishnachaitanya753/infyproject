@@ -285,6 +285,7 @@ class G1MotionEnv(gym.Env):
 
         # ── MuJoCo ───────────────────────────────────────────────────────
         self.model = mujoco.MjModel.from_xml_path(str(xml_path))
+        self.model.opt.timestep = SIM_DT   # apply our timestep — XML default is ignored
         self.data  = mujoco.MjData(self.model)
 
         # Scale actuator gear: ctrl=±1 → ±TORQUE_LIMITS[i] Nm
