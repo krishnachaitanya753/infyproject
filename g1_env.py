@@ -39,7 +39,7 @@ from gymnasium import spaces
 # ─── Paths ────────────────────────────────────────────────────────────────────
 
 _HERE  = Path(__file__).parent
-G1_XML = _HERE / "video2robot-with-inspire/third_party/GMR/assets/unitree_g1/g1_mocap_29dof.xml"
+G1_XML = _HERE / "robot_assets/unitree_g1/g1_mocap_29dof.xml"
 
 # ─── Joint layout (must match XML actuator order) ────────────────────────────
 
