@@ -138,7 +138,7 @@ W_ALIVE  = 0.15   # alive bonus per step
 W_ENERGY = 0.10   # penalise torque
 
 MIN_HEIGHT = 0.45   # pelvis z [m] — below this = fell
-SIM_DT     = 0.001  # inner MuJoCo timestep  (1000 Hz) — finer dt prevents NaN instability
+SIM_DT     = 0.0005 # inner MuJoCo timestep  (2000 Hz) — finer dt prevents NaN instability
 CTRL_HZ    = 50     # policy control frequency
 
 

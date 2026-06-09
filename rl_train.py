@@ -41,7 +41,7 @@ PPO_DEFAULTS = dict(
     n_envs          = 4,           # parallel envs (set 1 on low-end machines)
     log_interval    = 10,          # log every N policy updates
     save_interval   = 100,         # save checkpoint every N updates
-    device          = "auto",      # "auto" | "cpu" | "cuda"
+    device          = "cpu",        # MLP policy is faster on CPU; GPU helps only for CNNs
 )
 
 
