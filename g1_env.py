@@ -450,6 +450,10 @@ class G1MotionEnv(gym.Env):
             self.data.ctrl[:] = torques / TORQUE_LIMITS
             mujoco.mj_step(self.model, self.data)
             avg_torques += np.abs(torques)
+            # Catch NaN/Inf — reset immediately to avoid corrupting rollout
+            if not np.isfinite(self.data.qpos).all():
+                obs, _ = self.reset()
+                return obs, 0.0, True, False, {"nan_reset": True}
         avg_torques /= self.substeps
 
         self._ref_time   += self._ctrl_dt
