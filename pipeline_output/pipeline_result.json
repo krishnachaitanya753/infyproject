@@ -1,0 +1,68 @@
+{
+  "stick_video": "pipeline_output\\stick_figure.mp4",
+  "trajectory": "pipeline_output\\trajectory.json",
+  "total_frames": 240,
+  "pose_frames": 240,
+  "joints": [
+    "L shoulder",
+    "R shoulder",
+    "L elbow",
+    "R elbow",
+    "L hip",
+    "R hip",
+    "L knee",
+    "R knee"
+  ],
+  "angle_stats": {
+    "L shoulder": {
+      "mean": 41.849902853319584,
+      "std": 13.428647731449558,
+      "min": 21.75099123001356,
+      "max": 66.54515141944091
+    },
+    "R shoulder": {
+      "mean": 18.110468826450635,
+      "std": 11.56834316445282,
+      "min": 0.46485590442767866,
+      "max": 40.32286656165069
+    },
+    "L elbow": {
+      "mean": 148.18189496091827,
+      "std": 15.201491699398995,
+      "min": 121.05283163570192,
+      "max": 169.90214974105868
+    },
+    "R elbow": {
+      "mean": 125.95459396755389,
+      "std": 5.9032956235065495,
+      "min": 114.6923377976976,
+      "max": 137.23421768953364
+    },
+    "L hip": {
+      "mean": 137.94428305369595,
+      "std": 6.95250946524494,
+      "min": 119.36335220192599,
+      "max": 154.81832712816367
+    },
+    "R hip": {
+      "mean": 153.083124881581,
+      "std": 15.010089490500826,
+      "min": 125.41611936008985,
+      "max": 173.29315671890623
+    },
+    "L knee": {
+      "mean": 139.89636830300086,
+      "std": 7.457384993601373,
+      "min": 120.02620199308234,
+      "max": 151.63662341218318
+    },
+    "R knee": {
+      "mean": 145.206504840909,
+      "std": 8.607066096960633,
+      "min": 119.25100888975172,
+      "max": 160.37344139024532
+    }
+  },
+  "video_prompt": "A humanoid robot performs smooth, lifelike movements in a modern laboratory setting with soft ambient lighting and subtle blue accent lighting. Medium shot from slightly below eye level, camera slowly pans following the robot's torso. The robot walks with natural gait cycle, weight shifting fluidly between legs, arms swinging in coordinated counterbalance. It pauses, turns its head with precise angular motion, reaches forward with articulated fingers curling around an object. Mechanical joints move with organic fluidity, no jerking. Clean concrete floor reflects subtle highlights. Cinematic lighting with volumetric rays from a large window, shallow depth of field, 4K hyperrealistic rendering, slight film grain for realism.",
+  "storyline": "(video uploaded \u2014 stages 1 & 2 skipped)"
+}

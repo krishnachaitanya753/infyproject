@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Environment files
+.env
+
+# Reference code from lead — do not push
+video2robot-with-inspire/
+
+# Scratch videos in extra/
+extra/*.mp4
+extra/*.png
+
+# Large model files
+*.task
+*.pt
+*.zip

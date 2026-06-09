@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion Pipeline</title>
+<style>
+:root {
+  --bg:#0e0e14; --surface:#16161f; --border:#2a2a38;
+  --accent:#5b8cff; --accent2:#a78bfa;
+  --text:#e0e0f0; --muted:#6b6b8a;
+  --success:#4ade80; --error:#f87171; --running:#60a5fa;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+header{padding:20px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
+.logo{font-size:1.5rem;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sub{color:var(--muted);font-size:0.85rem;}
+main{flex:1;display:grid;grid-template-columns:400px 1fr;gap:0;}
+
+.left-panel{border-right:1px solid var(--border);padding:28px 24px;display:flex;flex-direction:column;gap:20px;overflow-y:auto;}
+label{font-size:0.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:6px;}
+textarea{width:100%;min-height:110px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.92rem;padding:12px;resize:vertical;outline:none;transition:border-color .2s;font-family:inherit;}
+textarea:focus{border-color:var(--accent);}
+.hint{font-size:0.75rem;color:var(--muted);margin-top:5px;line-height:1.5;}
+.hint b{color:var(--accent2);}
+
+/* Upload zone */
+.upload-zone{border:2px dashed var(--border);border-radius:10px;padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:rgba(91,140,255,.05);}
+.upload-zone.has-file{border-color:var(--success);background:rgba(74,222,128,.05);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{font-size:1.6rem;margin-bottom:6px;}
+.upload-label{font-size:0.85rem;color:var(--muted);}
+.upload-label b{color:var(--text);}
+.upload-name{font-size:0.8rem;color:var(--success);margin-top:6px;font-weight:600;word-break:break-all;}
+.clear-btn{font-size:0.72rem;color:var(--error);cursor:pointer;margin-top:4px;display:inline-block;text-decoration:underline;background:none;border:none;padding:0;}
+
+.btn{width:100%;padding:13px;border-radius:8px;border:none;cursor:pointer;font-size:0.95rem;font-weight:600;transition:all .2s;}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+.btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* Upload progress bar */
+.upload-progress{display:none;margin-top:8px;}
+.upload-progress.show{display:block;}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .3s;}
+.progress-label{font-size:0.72rem;color:var(--muted);margin-top:4px;}
+
+.stages{display:flex;flex-direction:column;gap:10px;}
+.stage{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;transition:border-color .3s,background .3s;}
+.stage.running{border-color:var(--running);background:#1a2233;}
+.stage.done{border-color:var(--success);}
+.stage.skipped{border-color:var(--border);opacity:.45;}
+.stage.error{border-color:var(--error);}
+.stage-header{display:flex;align-items:center;gap:10px;}
+.stage-icon{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:0.75rem;font-weight:700;flex-shrink:0;}
+.pending .stage-icon{background:var(--border);color:var(--muted);}
+.running .stage-icon{background:var(--running);color:#fff;animation:pulse 1.2s infinite;}
+.done .stage-icon{background:var(--success);color:#0e0e14;}
+.skipped .stage-icon{background:var(--border);color:var(--muted);}
+.error .stage-icon{background:var(--error);color:#fff;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(96,165,250,.5)}50%{box-shadow:0 0 0 6px rgba(96,165,250,0)}}
+.stage-name{font-size:0.88rem;font-weight:600;flex:1;}
+.stage-badge{font-size:0.68rem;padding:2px 8px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.pending .stage-badge{background:var(--border);color:var(--muted);}
+.running .stage-badge{background:rgba(96,165,250,.2);color:var(--running);}
+.done .stage-badge{background:rgba(74,222,128,.15);color:var(--success);}
+.skipped .stage-badge{background:var(--border);color:var(--muted);}
+.error .stage-badge{background:rgba(248,113,113,.15);color:var(--error);}
+.stage-msgs{margin-top:8px;font-size:0.76rem;color:var(--muted);max-height:80px;overflow-y:auto;display:flex;flex-direction:column;gap:3px;}
+.stage-msgs span{line-height:1.4;}
+
+.right-panel{padding:28px 32px;display:flex;flex-direction:column;gap:24px;overflow-y:auto;}
+.section-title{font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;}
+
+.prompt-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:0.85rem;line-height:1.6;color:var(--text);min-height:80px;white-space:pre-wrap;word-break:break-word;}
+.prompt-box .empty{color:var(--muted);font-style:italic;}
+.blinking-cursor::after{content:'|';animation:blink .7s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.angle-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.angle-card .jname{font-size:0.78rem;font-weight:700;color:var(--accent2);margin-bottom:8px;}
+.angle-row{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);margin-bottom:3px;}
+.angle-row span:last-child{color:var(--text);font-weight:600;}
+
+.download-row{display:flex;gap:12px;flex-wrap:wrap;}
+.dl-btn{padding:10px 20px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.dl-btn:hover{background:rgba(91,140,255,.1);}
+.dl-btn.disabled{opacity:.35;pointer-events:none;}
+
+video{width:100%;max-width:480px;border-radius:12px;border:1px solid var(--border);background:#000;}
+.log{background:#0a0a10;border:1px solid var(--border);border-radius:10px;padding:14px;font-family:'Consolas',monospace;font-size:0.75rem;color:#aaa;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;line-height:1.5;}
+.banner{border-radius:8px;padding:12px 16px;font-size:0.85rem;margin-bottom:4px;}
+.banner.success{background:rgba(74,222,128,.08);border:1px solid var(--success);color:var(--success);}
+.banner.error{background:rgba(248,113,113,.1);border:1px solid var(--error);color:var(--error);}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="logo">Motion Pipeline</div>
+    <div class="sub">Storyline &rarr; Video &rarr; Joint Angles &rarr; Trajectory</div>
+  </div>
+</header>
+<main>
+
+<div class="left-panel">
+
+  <!-- Storyline input -->
+  <div>
+    <label for="storyline">Storyline</label>
+    <textarea id="storyline" placeholder="e.g. A humanoid robot walks into a factory, waves hello, and lifts a box onto a shelf."></textarea>
+  </div>
+
+  <!-- Video upload -->
+  <div>
+    <label>Upload Video <span style="color:var(--accent2);font-size:0.7rem;font-weight:400;text-transform:none;">(optional — skips stages 1 &amp; 2)</span></label>
+    <div class="upload-zone" id="upload-zone" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+      <input type="file" id="video-file" accept="video/*" onchange="onFileSelected(event)">
+      <div class="upload-icon">&#127909;</div>
+      <div class="upload-label" id="upload-label"><b>Click or drag</b> a video file here</div>
+      <div class="upload-name" id="upload-name" style="display:none"></div>
+      <button class="clear-btn" id="clear-btn" style="display:none" onclick="clearFile(event)">Remove</button>
+    </div>
+    <div class="upload-progress" id="upload-progress">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">Uploading...</div>
+    </div>
+    <div class="hint">If a video is uploaded, <b>stages 1 &amp; 2 are skipped</b> — goes straight to angle extraction.</div>
+  </div>
+
+  <button class="btn btn-primary" id="run-btn" onclick="startPipeline()">&#9654; Run Pipeline</button>
+
+  <div style="border-top:1px solid var(--border);padding-top:16px;">
+    <label>PPO Motion Tracking (Stage 6)</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <div>
+        <label style="font-size:0.7rem;margin-bottom:3px;">Total Timesteps</label>
+        <input type="number" id="cfg-timesteps" value="2000000" min="100000" step="100000" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;padding:7px 10px;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.7rem;margin-bottom:3px;">Parallel Envs</label>
+        <input type="number" id="cfg-envs" value="4" min="1" max="16" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;padding:7px 10px;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.7rem;margin-bottom:3px;">Learning Rate</label>
+        <input type="text" id="cfg-lr" value="0.0003" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;padding:7px 10px;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.7rem;margin-bottom:3px;">Device</label>
+        <select id="cfg-device" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;padding:7px 10px;outline:none;">
+          <option value="auto">auto</option>
+          <option value="cpu">cpu</option>
+          <option value="cuda">cuda</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" id="train-btn" onclick="startTraining()" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;font-weight:600;padding:11px;">&#129302; Train PPO Policy</button>
+    <div class="hint" style="margin-top:6px;">Trains a PPO policy to physically execute the motion on the real G1 29-DOF model in MuJoCo. Requires <b>trajectory.json</b> from Stage 5. Runs separately from the pipeline.</div>
+  </div>
+
+  <div class="stages" id="stages-container"></div>
+</div>
+
+<div class="right-panel">
+  <div id="banner-area"></div>
+
+  <div id="prompt-section">
+    <div class="section-title">Generated Video Prompt</div>
+    <div class="prompt-box" id="prompt-box"><span class="empty">Prompt will appear here...</span></div>
+  </div>
+
+  <div id="video-section" style="display:none">
+    <div class="section-title">Stick Figure Video</div>
+    <video id="stick-video" controls></video>
+  </div>
+
+  <div id="angles-section" style="display:none">
+    <div class="section-title">Joint Angle Statistics</div>
+    <div class="chart-grid" id="angle-grid"></div>
+  </div>
+
+  <div id="rl-section" style="display:none">
+    <div class="section-title">&#129302; RL Training Progress</div>
+    <div id="rl-stats" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px;"></div>
+    <canvas id="loss-chart" height="160" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;display:block;"></canvas>
+  </div>
+
+  <div>
+    <div class="section-title">Downloads</div>
+    <div class="download-row">
+      <a id="dl-video" class="dl-btn disabled" href="/api/download/video" download>Stick Video (.mp4)</a>
+      <a id="dl-traj"  class="dl-btn disabled" href="/api/download/trajectory" download>Trajectory (.json)</a>
+      <a id="dl-policy" class="dl-btn disabled" href="/api/download/policy" download>Policy (.pt)</a>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-title">Live Log</div>
+    <div class="log" id="log">Waiting for pipeline to start...\n</div>
+  </div>
+</div>
+
+</main>
+<script>
+var STAGE_NAMES = {
+  1: "Generate Video Prompt",
+  2: "Generate Video (Veo / fal.ai)",
+  3: "Extract Joint Angles",
+  4: "Smooth & Filter Angles",
+  5: "Build Stick Figure + Trajectory",
+  6: "Behavior Cloning (RL Training)"
+};
+
+var evtSource       = null;
+var promptBuffer    = "";
+var promptStreaming  = false;
+var uploadedVideoPath = null;   // server path of uploaded video
+
+// ── File upload handling ──────────────────────────────────────────────────────
+
+function onDragOver(e) {
+  e.preventDefault();
+  document.getElementById("upload-zone").classList.add("drag");
+}
+function onDragLeave(e) {
+  document.getElementById("upload-zone").classList.remove("drag");
+}
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById("upload-zone").classList.remove("drag");
+  var files = e.dataTransfer.files;
+  if (files.length > 0) { handleFile(files[0]); }
+}
+function onFileSelected(e) {
+  if (e.target.files.length > 0) { handleFile(e.target.files[0]); }
+}
+
+function handleFile(file) {
+  if (!file.type.startsWith("video/")) {
+    alert("Please select a video file.");
+    return;
+  }
+  var zone = document.getElementById("upload-zone");
+  document.getElementById("upload-label").style.display = "none";
+  document.getElementById("upload-name").textContent = file.name;
+  document.getElementById("upload-name").style.display = "block";
+  document.getElementById("clear-btn").style.display = "inline-block";
+  zone.classList.add("has-file");
+
+  // Upload to server
+  var prog = document.getElementById("upload-progress");
+  var fill = document.getElementById("progress-fill");
+  var lbl  = document.getElementById("progress-label");
+  prog.classList.add("show");
+  fill.style.width = "0%";
+  lbl.textContent  = "Uploading...";
+
+  var formData = new FormData();
+  formData.append("file", file);
+
+  // Disable run button while uploading
+  document.getElementById("run-btn").disabled = true;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/upload_video");
+  xhr.upload.onprogress = function(e) {
+    if (e.lengthComputable) {
+      var pct = Math.round(e.loaded / e.total * 100);
+      fill.style.width = pct + "%";
+      lbl.textContent  = "Uploading... " + pct + "%";
+    }
+  };
+  xhr.onload = function() {
+    document.getElementById("run-btn").disabled = false;
+    if (xhr.status === 200) {
+      var resp = JSON.parse(xhr.responseText);
+      uploadedVideoPath = resp.path;
+      fill.style.width = "100%";
+      lbl.textContent  = "Ready: " + resp.filename;
+    } else {
+      lbl.textContent = "Upload failed (status " + xhr.status + "). Try again.";
+      uploadedVideoPath = null;
+    }
+  };
+  xhr.onerror = function() {
+    document.getElementById("run-btn").disabled = false;
+    lbl.textContent = "Upload error. Is the server running?";
+    uploadedVideoPath = null;
+  };
+  xhr.send(formData);
+}
+
+function clearFile(e) {
+  e.stopPropagation();
+  uploadedVideoPath = null;
+  document.getElementById("video-file").value = "";
+  document.getElementById("upload-name").style.display = "none";
+  document.getElementById("clear-btn").style.display   = "none";
+  document.getElementById("upload-label").style.display = "";
+  document.getElementById("upload-zone").classList.remove("has-file");
+  document.getElementById("upload-progress").classList.remove("show");
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function appendLog(text) {
+  var el = document.getElementById("log");
+  el.textContent += text + "\n";
+  el.scrollTop = el.scrollHeight;
+}
+function setBanner(type, msg) {
+  var el = document.getElementById("banner-area");
+  if (!type) { el.innerHTML = ""; return; }
+  el.innerHTML = '<div class="banner ' + type + '">' + escHtml(msg) + "</div>";
+}
+
+function renderStages(stages, videoUploaded) {
+  var container = document.getElementById("stages-container");
+  container.innerHTML = "";
+  var maxStage = 6;
+  for (var s = 1; s <= maxStage; s++) {
+    var info = stages[s] || { status: "pending", messages: [] };
+    var st   = info.status;
+    // Visually mark stages 1+2 as skipped when video is uploaded
+    if (videoUploaded && (s === 1 || s === 2) && st === "pending") { st = "skipped"; }
+    var icon  = st === "done" ? "&#10003;" : st === "error" ? "&#10005;" : st === "skipped" ? "&#8211;" : s;
+    var badge = st === "skipped" ? "Skipped" : st.charAt(0).toUpperCase() + st.slice(1);
+    var msgs  = (info.messages || []).slice(-3);
+    var msgsHtml = "";
+    if (msgs.length > 0) {
+      var spans = "";
+      for (var i = 0; i < msgs.length; i++) { spans += "<span>" + escHtml(msgs[i]) + "</span>"; }
+      msgsHtml = '<div class="stage-msgs">' + spans + "</div>";
+    }
+    container.innerHTML +=
+      '<div class="stage ' + st + '">' +
+        '<div class="stage-header">' +
+          '<div class="stage-icon">' + icon + "</div>" +
+          '<div class="stage-name">' + STAGE_NAMES[s] + "</div>" +
+          '<div class="stage-badge">' + badge + "</div>" +
+        "</div>" + msgsHtml +
+      "</div>";
+  }
+}
+
+function refreshState() {
+  fetch("/api/state").then(function(r) { return r.json(); })
+    .then(function(s) { renderStages(s.stages, !!uploadedVideoPath); });
+}
+
+function handleEvent(ev) {
+  var stage = ev.stage, msg = ev.msg, data = ev.data || {};
+
+  if (stage === 1 && data.token) {
+    var box = document.getElementById("prompt-box");
+    if (!promptStreaming) {
+      promptBuffer = ""; promptStreaming = true;
+      box.innerHTML = ""; box.classList.add("blinking-cursor");
+    }
+    promptBuffer += data.token;
+    box.textContent = promptBuffer;
+    return;
+  }
+  if (stage === 1 && msg === "Video prompt ready." && data.prompt) {
+    promptStreaming = false;
+    var box = document.getElementById("prompt-box");
+    box.classList.remove("blinking-cursor");
+    box.textContent = data.prompt;
+  }
+  if (msg === "DONE") {
+    setBanner("success", "Pipeline complete! All stages finished.");
+    document.getElementById("run-btn").disabled = false;
+    showResults(data); return;
+  }
+  if (msg === "ERROR") {
+    setBanner("error", "Pipeline error: " + (data.error || "unknown"));
+    document.getElementById("run-btn").disabled = false; return;
+  }
+  if (!data.token) { appendLog("[Stage " + stage + "] " + msg); }
+}
+
+function showResults(result) {
+  var stats = result.angle_stats || {}, grid = document.getElementById("angle-grid");
+  grid.innerHTML = "";
+  var keys = Object.keys(stats);
+  for (var i = 0; i < keys.length; i++) {
+    var jname = keys[i], s = stats[jname];
+    grid.innerHTML +=
+      '<div class="angle-card"><div class="jname">' + escHtml(jname) + "</div>" +
+      '<div class="angle-row"><span>Mean</span><span>' + s.mean.toFixed(1) + "&deg;</span></div>" +
+      '<div class="angle-row"><span>Std</span><span>'  + s.std.toFixed(1)  + "&deg;</span></div>" +
+      '<div class="angle-row"><span>Min</span><span>'  + s.min.toFixed(1)  + "&deg;</span></div>" +
+      '<div class="angle-row"><span>Max</span><span>'  + s.max.toFixed(1)  + "&deg;</span></div></div>";
+  }
+  if (keys.length > 0) { document.getElementById("angles-section").style.display = "block"; }
+  var vid = document.getElementById("stick-video");
+  vid.src = "/output/stick_figure.mp4?t=" + Date.now(); vid.load();
+  document.getElementById("video-section").style.display = "block";
+  document.getElementById("dl-video").classList.remove("disabled");
+  document.getElementById("dl-traj").classList.remove("disabled");
+}
+
+// ── Start pipeline ────────────────────────────────────────────────────────────
+
+function startPipeline() {
+  var storyline = document.getElementById("storyline").value.trim();
+  var hasVideo  = !!uploadedVideoPath;
+
+  if (!storyline && !hasVideo) {
+    alert("Enter a storyline or upload a video (or both).");
+    return;
+  }
+  // If only a video is uploaded with no storyline, use a placeholder
+  if (!storyline && hasVideo) { storyline = "(video uploaded — stages 1 & 2 skipped)"; }
+
+  setBanner(null);
+  document.getElementById("run-btn").disabled = true;
+  document.getElementById("log").textContent  = "";
+
+  if (!hasVideo) {
+    var box = document.getElementById("prompt-box");
+    box.innerHTML = '<span class="empty">Generating...</span>';
+    box.classList.remove("blinking-cursor");
+    document.getElementById("prompt-section").style.display = "";
+  } else {
+    document.getElementById("prompt-section").style.display = "none";
+  }
+
+  document.getElementById("video-section").style.display   = "none";
+  document.getElementById("angles-section").style.display  = "none";
+  document.getElementById("dl-video").classList.add("disabled");
+  document.getElementById("dl-traj").classList.add("disabled");
+  promptStreaming = false; promptBuffer = "";
+
+  var emptyStages = {};
+  for (var i = 1; i <= 5; i++) { emptyStages[i] = { status: "pending", messages: [] }; }
+  renderStages(emptyStages, hasVideo);
+
+  if (evtSource) { evtSource.close(); evtSource = null; }
+
+  fetch("/api/run", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ storyline: storyline, existing_video: uploadedVideoPath || null })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(rdata) {
+    if (rdata.error) {
+      setBanner("error", rdata.error);
+      document.getElementById("run-btn").disabled = false; return;
+    }
+    appendLog(hasVideo ? "Video uploaded — skipping stages 1 & 2..." : "Pipeline started...");
+    evtSource = new EventSource("/api/stream");
+    evtSource.onmessage = function(e) {
+      var payload = JSON.parse(e.data);
+      if (payload.type === "state") { renderStages(payload.payload.stages, hasVideo); }
+      else if (payload.type === "event") { handleEvent(payload.payload); refreshState(); }
+    };
+    evtSource.onerror = function() {
+      appendLog("[SSE] Connection closed.");
+      if (evtSource) { evtSource.close(); evtSource = null; }
+    };
+  });
+}
+
+// ── Loss chart ────────────────────────────────────────────────────────────────
+var lossHistory = [];
+
+function drawLossChart() {
+  var canvas = document.getElementById("loss-chart");
+  if (!canvas) return;
+  var W = canvas.offsetWidth; canvas.width = W; canvas.height = 160;
+  var ctx = canvas.getContext("2d");
+  var pad = { t: 14, r: 16, b: 30, l: 54 };
+  var cw = W - pad.l - pad.r, ch = 160 - pad.t - pad.b;
+
+  ctx.fillStyle = "#12121a";
+  ctx.fillRect(0, 0, W, 160);
+
+  if (lossHistory.length < 2) {
+    ctx.fillStyle = "#555";
+    ctx.font = "12px Segoe UI,sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Loss curve will appear during training...", W / 2, 80);
+    return;
+  }
+
+  var minL = Math.min.apply(null, lossHistory) * 0.95;
+  var maxL = Math.max.apply(null, lossHistory) * 1.05;
+  if (maxL === minL) { maxL = minL + 0.001; }
+
+  // Grid
+  ctx.strokeStyle = "#2a2a38"; ctx.lineWidth = 1;
+  for (var gi = 0; gi <= 4; gi++) {
+    var gy = pad.t + (gi / 4) * ch;
+    ctx.beginPath(); ctx.moveTo(pad.l, gy); ctx.lineTo(pad.l + cw, gy); ctx.stroke();
+    var yval = maxL - (gi / 4) * (maxL - minL);
+    ctx.fillStyle = "#555"; ctx.font = "10px Consolas,monospace"; ctx.textAlign = "right";
+    ctx.fillText(yval.toFixed(4), pad.l - 4, gy + 3);
+  }
+
+  // Line
+  ctx.strokeStyle = "#a78bfa"; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (var i = 0; i < lossHistory.length; i++) {
+    var x = pad.l + (i / (lossHistory.length - 1)) * cw;
+    var y = pad.t + ch - ((lossHistory[i] - minL) / (maxL - minL)) * ch;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // X labels
+  ctx.fillStyle = "#555"; ctx.font = "10px Consolas,monospace"; ctx.textAlign = "center";
+  ctx.fillText("1", pad.l, 160 - 8);
+  ctx.fillText(String(lossHistory.length), pad.l + cw, 160 - 8);
+  ctx.fillText("Epoch", pad.l + cw / 2, 160 - 8);
+}
+
+function updateRLStats(data) {
+  var el = document.getElementById("rl-stats");
+  el.innerHTML =
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
+      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Epoch</div>' +
+      '<div style="font-size:1.1rem;font-weight:700;color:var(--text);">' + (data.epoch || 0) + " / " + (data.num_epochs || "?") + "</div>" +
+    "</div>" +
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
+      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Loss</div>' +
+      '<div style="font-size:1.1rem;font-weight:700;color:var(--accent2);">' + (data.loss !== undefined ? data.loss.toFixed(5) : "--") + "</div>" +
+    "</div>" +
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
+      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Best Loss</div>' +
+      '<div style="font-size:1.1rem;font-weight:700;color:var(--success);">' + (data.best_loss !== undefined ? data.best_loss.toFixed(5) : "--") + "</div>" +
+    "</div>" +
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
+      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Progress</div>' +
+      '<div style="font-size:1.1rem;font-weight:700;color:var(--running);">' + (data.progress || 0) + "%</div>" +
+    "</div>";
+}
+
+// Patch handleEvent to also handle stage-6 training events
+var _origHandleEvent = handleEvent;
+handleEvent = function(ev) {
+  if (ev.stage === 6) {
+    var data = ev.data || {};
+    if (ev.msg === "DONE" && data.loss_history) {
+      lossHistory = data.loss_history;
+      document.getElementById("rl-section").style.display = "block";
+      updateRLStats({ epoch: data.num_epochs, num_epochs: data.num_epochs,
+                      loss: data.final_loss, best_loss: data.best_loss, progress: 100 });
+      drawLossChart();
+      document.getElementById("dl-policy").classList.remove("disabled");
+      setBanner("success", "Training complete! Best loss: " + data.best_loss);
+      document.getElementById("train-btn").disabled = false;
+      return;
+    }
+    if (ev.msg === "ERROR") {
+      setBanner("error", "Training error: " + (data.error || "unknown"));
+      document.getElementById("train-btn").disabled = false;
+      return;
+    }
+    if (data.epoch !== undefined) {
+      document.getElementById("rl-section").style.display = "block";
+      lossHistory.push(data.loss);
+      updateRLStats(data);
+      drawLossChart();
+    }
+    if (!data.token) { appendLog("[Stage 6] " + ev.msg); }
+    return;
+  }
+  _origHandleEvent(ev);
+};
+
+// ── Start Training ────────────────────────────────────────────────────────────
+
+function startTraining() {
+  setBanner(null);
+  lossHistory = [];
+  document.getElementById("train-btn").disabled = true;
+  document.getElementById("rl-section").style.display = "block";
+  document.getElementById("rl-stats").innerHTML = "";
+  drawLossChart();
+
+  var cfg = {
+    total_timesteps: parseInt(document.getElementById("cfg-timesteps").value) || 2000000,
+    n_envs:          parseInt(document.getElementById("cfg-envs").value)       || 4,
+    lr:              parseFloat(document.getElementById("cfg-lr").value)       || 0.0003,
+    device:          document.getElementById("cfg-device").value               || "auto"
+  };
+
+  if (evtSource) { evtSource.close(); evtSource = null; }
+
+  fetch("/api/train", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cfg)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(rdata) {
+    if (rdata.error) {
+      setBanner("error", rdata.error);
+      document.getElementById("train-btn").disabled = false;
+      return;
+    }
+    appendLog("BC training started — epochs=" + cfg.num_epochs + " lr=" + cfg.lr);
+    evtSource = new EventSource("/api/stream");
+    evtSource.onmessage = function(e) {
+      var payload = JSON.parse(e.data);
+      if (payload.type === "state") { renderStages(payload.payload.stages, !!uploadedVideoPath); }
+      else if (payload.type === "event") { handleEvent(payload.payload); refreshState(); }
+    };
+    evtSource.onerror = function() {
+      appendLog("[SSE] Connection closed.");
+      if (evtSource) { evtSource.close(); evtSource = null; }
+    };
+  });
+}
+
+// Init
+(function() {
+  var e = {};
+  for (var i = 1; i <= 6; i++) { e[i] = { status: "pending", messages: [] }; }
+  renderStages(e, false);
+  drawLossChart();
+})();
+</script>
+</body>
+</html>

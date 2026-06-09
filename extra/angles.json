@@ -1,0 +1,4646 @@
+{
+  "metadata": {
+    "video_path": "input.mp4",
+    "fps": 24.0,
+    "total_frames": 240,
+    "processed_frames": 240,
+    "pose_detected_frames": 239,
+    "joint_names": [
+      "left_shoulder",
+      "right_shoulder",
+      "left_elbow",
+      "right_elbow",
+      "left_wrist",
+      "right_wrist",
+      "left_hip",
+      "right_hip",
+      "left_knee",
+      "right_knee",
+      "left_ankle",
+      "right_ankle"
+    ],
+    "angle_stats": {
+      "left_shoulder": {
+        "mean": 18.49,
+        "std": 7.23,
+        "min": 5.21,
+        "max": 51.74
+      },
+      "right_shoulder": {
+        "mean": 27.63,
+        "std": 12.77,
+        "min": 1.5,
+        "max": 60.06
+      },
+      "left_elbow": {
+        "mean": 128.45,
+        "std": 34.29,
+        "min": 48.93,
+        "max": 172.82
+      },
+      "right_elbow": {
+        "mean": 157.23,
+        "std": 11.61,
+        "min": 114.28,
+        "max": 173.43
+      },
+      "left_wrist": {
+        "mean": 148.06,
+        "std": 13.56,
+        "min": 107.73,
+        "max": 172.17
+      },
+      "right_wrist": {
+        "mean": 144.23,
+        "std": 17.0,
+        "min": 47.03,
+        "max": 178.37
+      },
+      "left_hip": {
+        "mean": 159.6,
+        "std": 9.98,
+        "min": 93.4,
+        "max": 178.09
+      },
+      "right_hip": {
+        "mean": 159.63,
+        "std": 15.7,
+        "min": 36.5,
+        "max": 179.77
+      },
+      "left_knee": {
+        "mean": 151.25,
+        "std": 15.12,
+        "min": 122.63,
+        "max": 173.26
+      },
+      "right_knee": {
+        "mean": 140.73,
+        "std": 26.09,
+        "min": 64.69,
+        "max": 179.72
+      },
+      "left_ankle": {
+        "mean": 79.8,
+        "std": 11.96,
+        "min": 62.02,
+        "max": 108.37
+      },
+      "right_ankle": {
+        "mean": 79.31,
+        "std": 9.87,
+        "min": 64.28,
+        "max": 102.36
+      }
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "timestamp_s": 0.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.38,
+        "right_shoulder": 49.28,
+        "left_elbow": 128.69,
+        "right_elbow": 150.88,
+        "left_wrist": 164.27,
+        "right_wrist": 177.13,
+        "left_hip": 175.53,
+        "right_hip": 176.37,
+        "left_knee": 144.83,
+        "right_knee": 138.77,
+        "left_ankle": 70.33,
+        "right_ankle": 68.29
+      }
+    },
+    {
+      "frame": 1,
+      "timestamp_s": 0.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.12,
+        "right_shoulder": 42.74,
+        "left_elbow": 126.68,
+        "right_elbow": 138.94,
+        "left_wrist": 156.55,
+        "right_wrist": 173.0,
+        "left_hip": 164.22,
+        "right_hip": 172.76,
+        "left_knee": 146.63,
+        "right_knee": 148.42,
+        "left_ankle": 71.56,
+        "right_ankle": 70.01
+      }
+    },
+    {
+      "frame": 2,
+      "timestamp_s": 0.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.75,
+        "right_shoulder": 19.27,
+        "left_elbow": 128.39,
+        "right_elbow": 136.86,
+        "left_wrist": 157.67,
+        "right_wrist": 161.27,
+        "left_hip": 157.98,
+        "right_hip": 177.45,
+        "left_knee": 153.41,
+        "right_knee": 157.15,
+        "left_ankle": 81.0,
+        "right_ankle": 72.25
+      }
+    },
+    {
+      "frame": 3,
+      "timestamp_s": 0.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.75,
+        "right_shoulder": 7.89,
+        "left_elbow": 128.13,
+        "right_elbow": 114.28,
+        "left_wrist": 161.09,
+        "right_wrist": 173.27,
+        "left_hip": 163.8,
+        "right_hip": 173.31,
+        "left_knee": 149.86,
+        "right_knee": 151.8,
+        "left_ankle": 75.43,
+        "right_ankle": 70.58
+      }
+    },
+    {
+      "frame": 4,
+      "timestamp_s": 0.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.64,
+        "right_shoulder": 44.08,
+        "left_elbow": 133.41,
+        "right_elbow": 143.05,
+        "left_wrist": 157.62,
+        "right_wrist": 176.67,
+        "left_hip": 168.0,
+        "right_hip": 174.82,
+        "left_knee": 159.7,
+        "right_knee": 156.51,
+        "left_ankle": 80.36,
+        "right_ankle": 75.75
+      }
+    },
+    {
+      "frame": 5,
+      "timestamp_s": 0.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.79,
+        "right_shoulder": 47.24,
+        "left_elbow": 129.35,
+        "right_elbow": 142.92,
+        "left_wrist": 156.87,
+        "right_wrist": 176.85,
+        "left_hip": 167.14,
+        "right_hip": 170.48,
+        "left_knee": 155.43,
+        "right_knee": 135.13,
+        "left_ankle": 78.84,
+        "right_ankle": 65.59
+      }
+    },
+    {
+      "frame": 6,
+      "timestamp_s": 0.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.45,
+        "right_shoulder": 59.41,
+        "left_elbow": 130.31,
+        "right_elbow": 149.52,
+        "left_wrist": 156.06,
+        "right_wrist": 175.81,
+        "left_hip": 160.33,
+        "right_hip": 167.14,
+        "left_knee": 151.11,
+        "right_knee": 128.74,
+        "left_ankle": 81.85,
+        "right_ankle": 64.28
+      }
+    },
+    {
+      "frame": 7,
+      "timestamp_s": 0.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.38,
+        "right_shoulder": 55.38,
+        "left_elbow": 127.95,
+        "right_elbow": 143.29,
+        "left_wrist": 157.94,
+        "right_wrist": 173.02,
+        "left_hip": 154.73,
+        "right_hip": 161.61,
+        "left_knee": 147.14,
+        "right_knee": 122.16,
+        "left_ankle": 81.44,
+        "right_ankle": 68.17
+      }
+    },
+    {
+      "frame": 8,
+      "timestamp_s": 0.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.39,
+        "right_shoulder": 60.06,
+        "left_elbow": 127.56,
+        "right_elbow": 144.93,
+        "left_wrist": 159.98,
+        "right_wrist": 178.37,
+        "left_hip": 155.62,
+        "right_hip": 159.06,
+        "left_knee": 144.9,
+        "right_knee": 115.67,
+        "left_ankle": 81.94,
+        "right_ankle": 70.17
+      }
+    },
+    {
+      "frame": 9,
+      "timestamp_s": 0.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.08,
+        "right_shoulder": 59.46,
+        "left_elbow": 128.31,
+        "right_elbow": 144.38,
+        "left_wrist": 159.01,
+        "right_wrist": 176.21,
+        "left_hip": 156.57,
+        "right_hip": 156.67,
+        "left_knee": 134.54,
+        "right_knee": 107.6,
+        "left_ankle": 76.08,
+        "right_ankle": 74.73
+      }
+    },
+    {
+      "frame": 10,
+      "timestamp_s": 0.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.12,
+        "right_shoulder": 57.58,
+        "left_elbow": 129.9,
+        "right_elbow": 144.44,
+        "left_wrist": 160.3,
+        "right_wrist": 174.07,
+        "left_hip": 157.31,
+        "right_hip": 141.81,
+        "left_knee": 131.02,
+        "right_knee": 87.9,
+        "left_ankle": 72.25,
+        "right_ankle": 65.03
+      }
+    },
+    {
+      "frame": 11,
+      "timestamp_s": 0.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.26,
+        "right_shoulder": 55.99,
+        "left_elbow": 132.45,
+        "right_elbow": 143.33,
+        "left_wrist": 159.4,
+        "right_wrist": 173.15,
+        "left_hip": 157.35,
+        "right_hip": 130.65,
+        "left_knee": 125.9,
+        "right_knee": 78.31,
+        "left_ankle": 69.1,
+        "right_ankle": 73.91
+      }
+    },
+    {
+      "frame": 12,
+      "timestamp_s": 0.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.32,
+        "right_shoulder": 58.66,
+        "left_elbow": 131.23,
+        "right_elbow": 144.71,
+        "left_wrist": 159.75,
+        "right_wrist": 172.63,
+        "left_hip": 155.53,
+        "right_hip": 113.12,
+        "left_knee": 122.63,
+        "right_knee": 64.69,
+        "left_ankle": 63.93,
+        "right_ankle": 70.64
+      }
+    },
+    {
+      "frame": 13,
+      "timestamp_s": 0.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.18,
+        "right_shoulder": 57.2,
+        "left_elbow": 129.76,
+        "right_elbow": 142.94,
+        "left_wrist": 160.51,
+        "right_wrist": 172.5,
+        "left_hip": 156.4,
+        "right_hip": 118.53,
+        "left_knee": 123.02,
+        "right_knee": 77.43,
+        "left_ankle": 62.02,
+        "right_ankle": 69.75
+      }
+    },
+    {
+      "frame": 14,
+      "timestamp_s": 0.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.63,
+        "right_shoulder": 55.85,
+        "left_elbow": 124.99,
+        "right_elbow": 141.11,
+        "left_wrist": 166.12,
+        "right_wrist": 172.0,
+        "left_hip": 160.11,
+        "right_hip": 122.58,
+        "left_knee": 128.28,
+        "right_knee": 89.44,
+        "left_ankle": 63.31,
+        "right_ankle": 70.02
+      }
+    },
+    {
+      "frame": 15,
+      "timestamp_s": 0.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.34,
+        "right_shoulder": 45.12,
+        "left_elbow": 128.05,
+        "right_elbow": 135.42,
+        "left_wrist": 165.41,
+        "right_wrist": 172.22,
+        "left_hip": 167.11,
+        "right_hip": 155.43,
+        "left_knee": 134.44,
+        "right_knee": 140.7,
+        "left_ankle": 65.63,
+        "right_ankle": 83.97
+      }
+    },
+    {
+      "frame": 16,
+      "timestamp_s": 0.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.8,
+        "right_shoulder": 47.43,
+        "left_elbow": 134.6,
+        "right_elbow": 144.08,
+        "left_wrist": 169.77,
+        "right_wrist": 172.07,
+        "left_hip": 172.32,
+        "right_hip": 140.24,
+        "left_knee": 141.71,
+        "right_knee": 143.07,
+        "left_ankle": 68.66,
+        "right_ankle": 100.78
+      }
+    },
+    {
+      "frame": 17,
+      "timestamp_s": 0.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.75,
+        "right_shoulder": 48.12,
+        "left_elbow": 130.95,
+        "right_elbow": 142.97,
+        "left_wrist": 169.42,
+        "right_wrist": 173.73,
+        "left_hip": 171.62,
+        "right_hip": 141.21,
+        "left_knee": 140.13,
+        "right_knee": 146.77,
+        "left_ankle": 66.86,
+        "right_ankle": 100.63
+      }
+    },
+    {
+      "frame": 18,
+      "timestamp_s": 0.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.22,
+        "right_shoulder": 46.54,
+        "left_elbow": 132.33,
+        "right_elbow": 142.23,
+        "left_wrist": 170.3,
+        "right_wrist": 174.22,
+        "left_hip": 169.61,
+        "right_hip": 137.09,
+        "left_knee": 142.67,
+        "right_knee": 144.38,
+        "left_ankle": 66.67,
+        "right_ankle": 102.36
+      }
+    },
+    {
+      "frame": 19,
+      "timestamp_s": 0.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.06,
+        "right_shoulder": 51.77,
+        "left_elbow": 128.6,
+        "right_elbow": 144.74,
+        "left_wrist": 169.92,
+        "right_wrist": 174.22,
+        "left_hip": 170.5,
+        "right_hip": 143.31,
+        "left_knee": 144.18,
+        "right_knee": 139.1,
+        "left_ankle": 66.48,
+        "right_ankle": 91.72
+      }
+    },
+    {
+      "frame": 20,
+      "timestamp_s": 0.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.85,
+        "right_shoulder": 51.31,
+        "left_elbow": 128.33,
+        "right_elbow": 144.78,
+        "left_wrist": 167.46,
+        "right_wrist": 173.67,
+        "left_hip": 169.77,
+        "right_hip": 145.88,
+        "left_knee": 142.88,
+        "right_knee": 138.23,
+        "left_ankle": 67.1,
+        "right_ankle": 91.59
+      }
+    },
+    {
+      "frame": 21,
+      "timestamp_s": 0.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.74,
+        "right_shoulder": 44.27,
+        "left_elbow": 130.71,
+        "right_elbow": 139.02,
+        "left_wrist": 164.08,
+        "right_wrist": 173.26,
+        "left_hip": 168.64,
+        "right_hip": 157.48,
+        "left_knee": 138.1,
+        "right_knee": 146.23,
+        "left_ankle": 66.66,
+        "right_ankle": 89.5
+      }
+    },
+    {
+      "frame": 22,
+      "timestamp_s": 0.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.65,
+        "right_shoulder": 47.54,
+        "left_elbow": 131.34,
+        "right_elbow": 140.6,
+        "left_wrist": 161.86,
+        "right_wrist": 174.14,
+        "left_hip": 169.17,
+        "right_hip": 159.01,
+        "left_knee": 135.19,
+        "right_knee": 144.53,
+        "left_ankle": 66.25,
+        "right_ankle": 85.81
+      }
+    },
+    {
+      "frame": 23,
+      "timestamp_s": 0.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.94,
+        "right_shoulder": 47.03,
+        "left_elbow": 129.49,
+        "right_elbow": 140.62,
+        "left_wrist": 160.17,
+        "right_wrist": 173.16,
+        "left_hip": 170.28,
+        "right_hip": 160.98,
+        "left_knee": 129.65,
+        "right_knee": 146.51,
+        "left_ankle": 66.62,
+        "right_ankle": 86.13
+      }
+    },
+    {
+      "frame": 24,
+      "timestamp_s": 1.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.47,
+        "right_shoulder": 49.77,
+        "left_elbow": 122.11,
+        "right_elbow": 140.83,
+        "left_wrist": 161.77,
+        "right_wrist": 171.09,
+        "left_hip": 170.02,
+        "right_hip": 160.97,
+        "left_knee": 126.02,
+        "right_knee": 148.62,
+        "left_ankle": 66.99,
+        "right_ankle": 82.79
+      }
+    },
+    {
+      "frame": 25,
+      "timestamp_s": 1.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.88,
+        "right_shoulder": 48.15,
+        "left_elbow": 120.77,
+        "right_elbow": 138.01,
+        "left_wrist": 160.73,
+        "right_wrist": 170.47,
+        "left_hip": 170.49,
+        "right_hip": 159.56,
+        "left_knee": 128.06,
+        "right_knee": 148.01,
+        "left_ankle": 66.29,
+        "right_ankle": 79.59
+      }
+    },
+    {
+      "frame": 26,
+      "timestamp_s": 1.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.06,
+        "right_shoulder": 44.22,
+        "left_elbow": 121.37,
+        "right_elbow": 138.81,
+        "left_wrist": 160.11,
+        "right_wrist": 169.88,
+        "left_hip": 170.33,
+        "right_hip": 161.71,
+        "left_knee": 129.65,
+        "right_knee": 149.26,
+        "left_ankle": 68.03,
+        "right_ankle": 79.98
+      }
+    },
+    {
+      "frame": 27,
+      "timestamp_s": 1.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.71,
+        "right_shoulder": 42.87,
+        "left_elbow": 121.42,
+        "right_elbow": 136.41,
+        "left_wrist": 161.26,
+        "right_wrist": 169.77,
+        "left_hip": 161.27,
+        "right_hip": 155.54,
+        "left_knee": 129.43,
+        "right_knee": 145.93,
+        "left_ankle": 70.91,
+        "right_ankle": 79.43
+      }
+    },
+    {
+      "frame": 28,
+      "timestamp_s": 1.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.44,
+        "right_shoulder": 36.62,
+        "left_elbow": 120.68,
+        "right_elbow": 137.08,
+        "left_wrist": 160.31,
+        "right_wrist": 166.21,
+        "left_hip": 161.25,
+        "right_hip": 155.38,
+        "left_knee": 141.1,
+        "right_knee": 145.81,
+        "left_ankle": 77.94,
+        "right_ankle": 80.08
+      }
+    },
+    {
+      "frame": 29,
+      "timestamp_s": 1.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.76,
+        "right_shoulder": 32.43,
+        "left_elbow": 120.13,
+        "right_elbow": 132.78,
+        "left_wrist": 159.91,
+        "right_wrist": 164.48,
+        "left_hip": 149.21,
+        "right_hip": 149.02,
+        "left_knee": 146.18,
+        "right_knee": 140.28,
+        "left_ankle": 87.96,
+        "right_ankle": 77.96
+      }
+    },
+    {
+      "frame": 30,
+      "timestamp_s": 1.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.62,
+        "right_shoulder": 24.58,
+        "left_elbow": 119.46,
+        "right_elbow": 131.6,
+        "left_wrist": 158.71,
+        "right_wrist": 158.09,
+        "left_hip": 148.56,
+        "right_hip": 149.52,
+        "left_knee": 147.7,
+        "right_knee": 137.1,
+        "left_ankle": 86.39,
+        "right_ankle": 74.57
+      }
+    },
+    {
+      "frame": 31,
+      "timestamp_s": 1.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.04,
+        "right_shoulder": 24.38,
+        "left_elbow": 122.54,
+        "right_elbow": 132.51,
+        "left_wrist": 157.34,
+        "right_wrist": 156.6,
+        "left_hip": 146.46,
+        "right_hip": 148.84,
+        "left_knee": 150.71,
+        "right_knee": 138.68,
+        "left_ankle": 88.1,
+        "right_ankle": 76.17
+      }
+    },
+    {
+      "frame": 32,
+      "timestamp_s": 1.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.46,
+        "right_shoulder": 31.44,
+        "left_elbow": 127.56,
+        "right_elbow": 140.21,
+        "left_wrist": 155.02,
+        "right_wrist": 156.2,
+        "left_hip": 151.15,
+        "right_hip": 143.72,
+        "left_knee": 158.11,
+        "right_knee": 145.96,
+        "left_ankle": 88.25,
+        "right_ankle": 83.29
+      }
+    },
+    {
+      "frame": 33,
+      "timestamp_s": 1.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.66,
+        "right_shoulder": 31.48,
+        "left_elbow": 128.63,
+        "right_elbow": 146.38,
+        "left_wrist": 154.9,
+        "right_wrist": 154.54,
+        "left_hip": 151.35,
+        "right_hip": 148.78,
+        "left_knee": 163.77,
+        "right_knee": 148.89,
+        "left_ankle": 91.08,
+        "right_ankle": 83.45
+      }
+    },
+    {
+      "frame": 34,
+      "timestamp_s": 1.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.31,
+        "right_shoulder": 29.92,
+        "left_elbow": 128.11,
+        "right_elbow": 143.55,
+        "left_wrist": 152.07,
+        "right_wrist": 152.77,
+        "left_hip": 147.47,
+        "right_hip": 150.53,
+        "left_knee": 168.96,
+        "right_knee": 147.64,
+        "left_ankle": 94.87,
+        "right_ankle": 77.78
+      }
+    },
+    {
+      "frame": 35,
+      "timestamp_s": 1.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.41,
+        "right_shoulder": 30.56,
+        "left_elbow": 126.92,
+        "right_elbow": 145.4,
+        "left_wrist": 153.41,
+        "right_wrist": 148.79,
+        "left_hip": 144.43,
+        "right_hip": 147.82,
+        "left_knee": 162.89,
+        "right_knee": 144.07,
+        "left_ankle": 92.0,
+        "right_ankle": 74.24
+      }
+    },
+    {
+      "frame": 36,
+      "timestamp_s": 1.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.84,
+        "right_shoulder": 28.06,
+        "left_elbow": 125.2,
+        "right_elbow": 143.17,
+        "left_wrist": 154.04,
+        "right_wrist": 148.81,
+        "left_hip": 142.57,
+        "right_hip": 151.8,
+        "left_knee": 159.59,
+        "right_knee": 140.35,
+        "left_ankle": 92.75,
+        "right_ankle": 69.23
+      }
+    },
+    {
+      "frame": 37,
+      "timestamp_s": 1.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.8,
+        "right_shoulder": 28.59,
+        "left_elbow": 124.62,
+        "right_elbow": 144.33,
+        "left_wrist": 156.06,
+        "right_wrist": 148.16,
+        "left_hip": 144.53,
+        "right_hip": 151.56,
+        "left_knee": 158.38,
+        "right_knee": 136.94,
+        "left_ankle": 93.14,
+        "right_ankle": 69.63
+      }
+    },
+    {
+      "frame": 38,
+      "timestamp_s": 1.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.93,
+        "right_shoulder": 30.02,
+        "left_elbow": 122.08,
+        "right_elbow": 146.2,
+        "left_wrist": 157.16,
+        "right_wrist": 146.62,
+        "left_hip": 143.36,
+        "right_hip": 148.6,
+        "left_knee": 150.01,
+        "right_knee": 129.12,
+        "left_ankle": 88.07,
+        "right_ankle": 72.54
+      }
+    },
+    {
+      "frame": 39,
+      "timestamp_s": 1.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 9.92,
+        "right_shoulder": 30.82,
+        "left_elbow": 117.9,
+        "right_elbow": 149.63,
+        "left_wrist": 160.73,
+        "right_wrist": 148.17,
+        "left_hip": 150.18,
+        "right_hip": 139.69,
+        "left_knee": 144.41,
+        "right_knee": 111.27,
+        "left_ankle": 82.1,
+        "right_ankle": 72.28
+      }
+    },
+    {
+      "frame": 40,
+      "timestamp_s": 1.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.33,
+        "right_shoulder": 27.28,
+        "left_elbow": 118.25,
+        "right_elbow": 149.61,
+        "left_wrist": 163.7,
+        "right_wrist": 148.68,
+        "left_hip": 156.28,
+        "right_hip": 143.64,
+        "left_knee": 144.72,
+        "right_knee": 109.57,
+        "left_ankle": 84.1,
+        "right_ankle": 72.97
+      }
+    },
+    {
+      "frame": 41,
+      "timestamp_s": 1.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.66,
+        "right_shoulder": 30.71,
+        "left_elbow": 119.98,
+        "right_elbow": 157.92,
+        "left_wrist": 166.89,
+        "right_wrist": 149.06,
+        "left_hip": 166.29,
+        "right_hip": 151.73,
+        "left_knee": 144.3,
+        "right_knee": 112.71,
+        "left_ankle": 82.43,
+        "right_ankle": 74.89
+      }
+    },
+    {
+      "frame": 42,
+      "timestamp_s": 1.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.29,
+        "right_shoulder": 30.97,
+        "left_elbow": 120.23,
+        "right_elbow": 162.67,
+        "left_wrist": 167.49,
+        "right_wrist": 149.81,
+        "left_hip": 174.29,
+        "right_hip": 153.91,
+        "left_knee": 149.95,
+        "right_knee": 114.97,
+        "left_ankle": 84.77,
+        "right_ankle": 76.76
+      }
+    },
+    {
+      "frame": 43,
+      "timestamp_s": 1.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.12,
+        "right_shoulder": 32.57,
+        "left_elbow": 118.69,
+        "right_elbow": 164.16,
+        "left_wrist": 169.83,
+        "right_wrist": 153.11,
+        "left_hip": 178.09,
+        "right_hip": 155.8,
+        "left_knee": 152.01,
+        "right_knee": 126.02,
+        "left_ankle": 83.89,
+        "right_ankle": 79.45
+      }
+    },
+    {
+      "frame": 44,
+      "timestamp_s": 1.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.77,
+        "right_shoulder": 32.05,
+        "left_elbow": 115.63,
+        "right_elbow": 162.85,
+        "left_wrist": 172.17,
+        "right_wrist": 155.11,
+        "left_hip": 169.27,
+        "right_hip": 157.33,
+        "left_knee": 159.46,
+        "right_knee": 140.06,
+        "left_ankle": 84.69,
+        "right_ankle": 86.08
+      }
+    },
+    {
+      "frame": 45,
+      "timestamp_s": 1.875,
+      "pose_detected": false,
+      "joints": {}
+    },
+    {
+      "frame": 46,
+      "timestamp_s": 1.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 5.21,
+        "right_shoulder": 49.15,
+        "left_elbow": 121.37,
+        "right_elbow": 156.96,
+        "left_wrist": 164.39,
+        "right_wrist": 136.88,
+        "left_hip": 165.87,
+        "right_hip": 119.17,
+        "left_knee": 146.4,
+        "right_knee": 97.74,
+        "left_ankle": 101.82,
+        "right_ankle": 88.61
+      }
+    },
+    {
+      "frame": 47,
+      "timestamp_s": 1.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.56,
+        "right_shoulder": 48.94,
+        "left_elbow": 122.28,
+        "right_elbow": 154.45,
+        "left_wrist": 156.97,
+        "right_wrist": 139.59,
+        "left_hip": 171.74,
+        "right_hip": 132.32,
+        "left_knee": 140.54,
+        "right_knee": 99.33,
+        "left_ankle": 98.73,
+        "right_ankle": 71.46
+      }
+    },
+    {
+      "frame": 48,
+      "timestamp_s": 2.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.93,
+        "right_shoulder": 47.69,
+        "left_elbow": 125.74,
+        "right_elbow": 159.11,
+        "left_wrist": 149.01,
+        "right_wrist": 138.12,
+        "left_hip": 175.82,
+        "right_hip": 172.71,
+        "left_knee": 155.63,
+        "right_knee": 165.29,
+        "left_ankle": 100.1,
+        "right_ankle": 84.29
+      }
+    },
+    {
+      "frame": 49,
+      "timestamp_s": 2.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.01,
+        "right_shoulder": 47.2,
+        "left_elbow": 127.97,
+        "right_elbow": 164.77,
+        "left_wrist": 150.07,
+        "right_wrist": 141.75,
+        "left_hip": 174.44,
+        "right_hip": 171.23,
+        "left_knee": 156.81,
+        "right_knee": 164.7,
+        "left_ankle": 98.17,
+        "right_ankle": 86.73
+      }
+    },
+    {
+      "frame": 50,
+      "timestamp_s": 2.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.42,
+        "right_shoulder": 52.26,
+        "left_elbow": 130.17,
+        "right_elbow": 168.44,
+        "left_wrist": 153.88,
+        "right_wrist": 147.94,
+        "left_hip": 161.75,
+        "right_hip": 175.3,
+        "left_knee": 168.71,
+        "right_knee": 173.33,
+        "left_ankle": 97.42,
+        "right_ankle": 91.51
+      }
+    },
+    {
+      "frame": 51,
+      "timestamp_s": 2.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.44,
+        "right_shoulder": 42.76,
+        "left_elbow": 133.5,
+        "right_elbow": 167.6,
+        "left_wrist": 157.17,
+        "right_wrist": 146.74,
+        "left_hip": 161.09,
+        "right_hip": 174.65,
+        "left_knee": 173.26,
+        "right_knee": 173.21,
+        "left_ankle": 108.37,
+        "right_ankle": 96.61
+      }
+    },
+    {
+      "frame": 52,
+      "timestamp_s": 2.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.93,
+        "right_shoulder": 39.64,
+        "left_elbow": 131.55,
+        "right_elbow": 169.14,
+        "left_wrist": 159.67,
+        "right_wrist": 145.4,
+        "left_hip": 158.76,
+        "right_hip": 172.2,
+        "left_knee": 171.29,
+        "right_knee": 171.01,
+        "left_ankle": null,
+        "right_ankle": 100.26
+      }
+    },
+    {
+      "frame": 53,
+      "timestamp_s": 2.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.68,
+        "right_shoulder": 42.98,
+        "left_elbow": 125.5,
+        "right_elbow": 171.18,
+        "left_wrist": 157.5,
+        "right_wrist": 141.09,
+        "left_hip": 157.5,
+        "right_hip": 163.77,
+        "left_knee": null,
+        "right_knee": 163.51,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 54,
+      "timestamp_s": 2.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.04,
+        "right_shoulder": 40.64,
+        "left_elbow": 123.73,
+        "right_elbow": 172.27,
+        "left_wrist": 158.62,
+        "right_wrist": 140.12,
+        "left_hip": 154.48,
+        "right_hip": 154.0,
+        "left_knee": null,
+        "right_knee": 156.26,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 55,
+      "timestamp_s": 2.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.96,
+        "right_shoulder": 36.56,
+        "left_elbow": 125.66,
+        "right_elbow": 171.79,
+        "left_wrist": 158.93,
+        "right_wrist": 140.61,
+        "left_hip": 156.93,
+        "right_hip": 155.35,
+        "left_knee": null,
+        "right_knee": 148.18,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 56,
+      "timestamp_s": 2.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.94,
+        "right_shoulder": 38.87,
+        "left_elbow": 121.45,
+        "right_elbow": 170.73,
+        "left_wrist": 157.2,
+        "right_wrist": 143.15,
+        "left_hip": 157.03,
+        "right_hip": 158.88,
+        "left_knee": null,
+        "right_knee": 151.87,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 57,
+      "timestamp_s": 2.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.4,
+        "right_shoulder": 38.63,
+        "left_elbow": 121.47,
+        "right_elbow": 169.58,
+        "left_wrist": 158.7,
+        "right_wrist": 139.43,
+        "left_hip": 158.25,
+        "right_hip": 158.6,
+        "left_knee": null,
+        "right_knee": 151.49,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 58,
+      "timestamp_s": 2.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.99,
+        "right_shoulder": 37.01,
+        "left_elbow": 127.7,
+        "right_elbow": 168.13,
+        "left_wrist": 156.35,
+        "right_wrist": 139.08,
+        "left_hip": 159.02,
+        "right_hip": 171.4,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 59,
+      "timestamp_s": 2.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.16,
+        "right_shoulder": 37.84,
+        "left_elbow": 129.65,
+        "right_elbow": 167.84,
+        "left_wrist": 153.47,
+        "right_wrist": 141.31,
+        "left_hip": 158.52,
+        "right_hip": 177.98,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 60,
+      "timestamp_s": 2.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.67,
+        "right_shoulder": 37.66,
+        "left_elbow": 135.5,
+        "right_elbow": 166.84,
+        "left_wrist": 151.04,
+        "right_wrist": 142.13,
+        "left_hip": 158.99,
+        "right_hip": 177.46,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 61,
+      "timestamp_s": 2.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.13,
+        "right_shoulder": 37.31,
+        "left_elbow": 134.24,
+        "right_elbow": 166.06,
+        "left_wrist": 151.11,
+        "right_wrist": 141.45,
+        "left_hip": 156.14,
+        "right_hip": 176.92,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 62,
+      "timestamp_s": 2.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.34,
+        "right_shoulder": 40.0,
+        "left_elbow": 134.54,
+        "right_elbow": 161.62,
+        "left_wrist": 152.1,
+        "right_wrist": 138.66,
+        "left_hip": 153.34,
+        "right_hip": 176.08,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 63,
+      "timestamp_s": 2.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.53,
+        "right_shoulder": 42.02,
+        "left_elbow": 133.94,
+        "right_elbow": 161.06,
+        "left_wrist": 154.15,
+        "right_wrist": 140.22,
+        "left_hip": 154.5,
+        "right_hip": 176.72,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 64,
+      "timestamp_s": 2.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.67,
+        "right_shoulder": 40.06,
+        "left_elbow": 134.51,
+        "right_elbow": 159.42,
+        "left_wrist": 158.5,
+        "right_wrist": 139.18,
+        "left_hip": 155.2,
+        "right_hip": 176.06,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 65,
+      "timestamp_s": 2.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.81,
+        "right_shoulder": 40.69,
+        "left_elbow": 134.86,
+        "right_elbow": 157.71,
+        "left_wrist": 158.47,
+        "right_wrist": 137.54,
+        "left_hip": 154.84,
+        "right_hip": 176.17,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 66,
+      "timestamp_s": 2.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.91,
+        "right_shoulder": 40.11,
+        "left_elbow": 135.92,
+        "right_elbow": 155.54,
+        "left_wrist": 156.86,
+        "right_wrist": 133.48,
+        "left_hip": 152.86,
+        "right_hip": 177.5,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 67,
+      "timestamp_s": 2.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.57,
+        "right_shoulder": 38.83,
+        "left_elbow": 138.35,
+        "right_elbow": 154.12,
+        "left_wrist": 153.13,
+        "right_wrist": 132.8,
+        "left_hip": 154.87,
+        "right_hip": 178.98,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 68,
+      "timestamp_s": 2.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.12,
+        "right_shoulder": 44.45,
+        "left_elbow": 136.32,
+        "right_elbow": 151.35,
+        "left_wrist": 152.14,
+        "right_wrist": 131.49,
+        "left_hip": 153.3,
+        "right_hip": 177.37,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 69,
+      "timestamp_s": 2.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.15,
+        "right_shoulder": 41.16,
+        "left_elbow": 134.63,
+        "right_elbow": 151.25,
+        "left_wrist": null,
+        "right_wrist": 132.2,
+        "left_hip": 156.12,
+        "right_hip": 178.61,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 70,
+      "timestamp_s": 2.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.17,
+        "right_shoulder": 39.66,
+        "left_elbow": null,
+        "right_elbow": 153.5,
+        "left_wrist": null,
+        "right_wrist": 135.82,
+        "left_hip": 157.61,
+        "right_hip": 175.84,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 71,
+      "timestamp_s": 2.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.53,
+        "right_shoulder": 36.23,
+        "left_elbow": null,
+        "right_elbow": 154.86,
+        "left_wrist": null,
+        "right_wrist": 137.78,
+        "left_hip": 155.99,
+        "right_hip": 175.91,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 72,
+      "timestamp_s": 3.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.56,
+        "right_shoulder": 35.84,
+        "left_elbow": null,
+        "right_elbow": 155.33,
+        "left_wrist": null,
+        "right_wrist": 138.79,
+        "left_hip": 155.67,
+        "right_hip": 176.48,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 73,
+      "timestamp_s": 3.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.7,
+        "right_shoulder": 35.78,
+        "left_elbow": null,
+        "right_elbow": 156.16,
+        "left_wrist": null,
+        "right_wrist": 140.85,
+        "left_hip": 155.98,
+        "right_hip": 176.66,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 74,
+      "timestamp_s": 3.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.28,
+        "right_shoulder": 36.11,
+        "left_elbow": null,
+        "right_elbow": 157.07,
+        "left_wrist": null,
+        "right_wrist": 139.07,
+        "left_hip": 153.62,
+        "right_hip": 177.23,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 75,
+      "timestamp_s": 3.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.34,
+        "right_shoulder": 39.02,
+        "left_elbow": null,
+        "right_elbow": 157.54,
+        "left_wrist": null,
+        "right_wrist": 140.93,
+        "left_hip": 151.83,
+        "right_hip": 177.56,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 76,
+      "timestamp_s": 3.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.06,
+        "right_shoulder": 41.43,
+        "left_elbow": null,
+        "right_elbow": 157.42,
+        "left_wrist": null,
+        "right_wrist": 141.33,
+        "left_hip": 152.16,
+        "right_hip": 174.93,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 77,
+      "timestamp_s": 3.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.86,
+        "right_shoulder": 38.1,
+        "left_elbow": null,
+        "right_elbow": 158.44,
+        "left_wrist": null,
+        "right_wrist": 142.24,
+        "left_hip": 154.23,
+        "right_hip": 176.86,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 78,
+      "timestamp_s": 3.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.53,
+        "right_shoulder": 38.16,
+        "left_elbow": null,
+        "right_elbow": 161.19,
+        "left_wrist": null,
+        "right_wrist": 143.11,
+        "left_hip": 153.81,
+        "right_hip": 177.4,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 79,
+      "timestamp_s": 3.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.91,
+        "right_shoulder": 37.89,
+        "left_elbow": null,
+        "right_elbow": 161.92,
+        "left_wrist": null,
+        "right_wrist": 142.46,
+        "left_hip": 151.6,
+        "right_hip": 178.67,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 80,
+      "timestamp_s": 3.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.61,
+        "right_shoulder": 37.36,
+        "left_elbow": null,
+        "right_elbow": 159.74,
+        "left_wrist": null,
+        "right_wrist": 139.12,
+        "left_hip": 151.32,
+        "right_hip": 178.01,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 81,
+      "timestamp_s": 3.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.32,
+        "right_shoulder": 36.75,
+        "left_elbow": null,
+        "right_elbow": 160.64,
+        "left_wrist": null,
+        "right_wrist": 138.1,
+        "left_hip": 149.29,
+        "right_hip": 179.72,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 82,
+      "timestamp_s": 3.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.77,
+        "right_shoulder": 35.54,
+        "left_elbow": null,
+        "right_elbow": 161.86,
+        "left_wrist": null,
+        "right_wrist": 140.07,
+        "left_hip": 154.28,
+        "right_hip": 179.59,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 83,
+      "timestamp_s": 3.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.48,
+        "right_shoulder": 31.2,
+        "left_elbow": null,
+        "right_elbow": 161.94,
+        "left_wrist": null,
+        "right_wrist": 140.2,
+        "left_hip": 155.33,
+        "right_hip": 178.05,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 84,
+      "timestamp_s": 3.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.53,
+        "right_shoulder": 33.57,
+        "left_elbow": null,
+        "right_elbow": 162.95,
+        "left_wrist": null,
+        "right_wrist": 141.52,
+        "left_hip": 154.75,
+        "right_hip": 178.28,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 85,
+      "timestamp_s": 3.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.86,
+        "right_shoulder": 34.66,
+        "left_elbow": null,
+        "right_elbow": 161.99,
+        "left_wrist": null,
+        "right_wrist": 140.31,
+        "left_hip": 154.52,
+        "right_hip": 177.34,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 86,
+      "timestamp_s": 3.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.22,
+        "right_shoulder": 34.25,
+        "left_elbow": null,
+        "right_elbow": 160.71,
+        "left_wrist": null,
+        "right_wrist": 139.02,
+        "left_hip": 154.9,
+        "right_hip": 178.2,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 87,
+      "timestamp_s": 3.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.37,
+        "right_shoulder": 31.48,
+        "left_elbow": null,
+        "right_elbow": 161.39,
+        "left_wrist": null,
+        "right_wrist": 139.43,
+        "left_hip": 155.87,
+        "right_hip": 178.13,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 88,
+      "timestamp_s": 3.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.03,
+        "right_shoulder": 33.14,
+        "left_elbow": null,
+        "right_elbow": 159.11,
+        "left_wrist": null,
+        "right_wrist": 138.99,
+        "left_hip": 155.55,
+        "right_hip": 177.99,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 89,
+      "timestamp_s": 3.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.18,
+        "right_shoulder": 33.49,
+        "left_elbow": null,
+        "right_elbow": 158.61,
+        "left_wrist": null,
+        "right_wrist": 135.45,
+        "left_hip": 154.47,
+        "right_hip": 177.02,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 90,
+      "timestamp_s": 3.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.33,
+        "right_shoulder": 34.11,
+        "left_elbow": null,
+        "right_elbow": 158.49,
+        "left_wrist": null,
+        "right_wrist": 137.81,
+        "left_hip": 154.16,
+        "right_hip": 177.3,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 91,
+      "timestamp_s": 3.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.31,
+        "right_shoulder": 34.36,
+        "left_elbow": null,
+        "right_elbow": 158.02,
+        "left_wrist": null,
+        "right_wrist": 137.28,
+        "left_hip": 153.18,
+        "right_hip": 176.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 92,
+      "timestamp_s": 3.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.83,
+        "right_shoulder": 34.28,
+        "left_elbow": null,
+        "right_elbow": 159.65,
+        "left_wrist": null,
+        "right_wrist": 138.66,
+        "left_hip": 153.85,
+        "right_hip": 179.41,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 93,
+      "timestamp_s": 3.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.92,
+        "right_shoulder": 34.44,
+        "left_elbow": null,
+        "right_elbow": 160.78,
+        "left_wrist": null,
+        "right_wrist": 140.5,
+        "left_hip": 153.21,
+        "right_hip": 179.71,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 94,
+      "timestamp_s": 3.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.17,
+        "right_shoulder": 34.54,
+        "left_elbow": null,
+        "right_elbow": 160.9,
+        "left_wrist": null,
+        "right_wrist": 140.89,
+        "left_hip": 153.14,
+        "right_hip": 179.28,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 95,
+      "timestamp_s": 3.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.04,
+        "right_shoulder": 36.51,
+        "left_elbow": null,
+        "right_elbow": 160.9,
+        "left_wrist": null,
+        "right_wrist": 140.48,
+        "left_hip": 152.69,
+        "right_hip": 178.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 96,
+      "timestamp_s": 4.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.26,
+        "right_shoulder": 35.74,
+        "left_elbow": null,
+        "right_elbow": 161.11,
+        "left_wrist": null,
+        "right_wrist": 139.71,
+        "left_hip": 152.39,
+        "right_hip": 176.79,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 97,
+      "timestamp_s": 4.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.03,
+        "right_shoulder": 37.29,
+        "left_elbow": null,
+        "right_elbow": 159.99,
+        "left_wrist": null,
+        "right_wrist": 139.98,
+        "left_hip": 152.42,
+        "right_hip": 177.57,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 98,
+      "timestamp_s": 4.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.83,
+        "right_shoulder": 35.9,
+        "left_elbow": null,
+        "right_elbow": 161.31,
+        "left_wrist": null,
+        "right_wrist": 140.07,
+        "left_hip": 153.52,
+        "right_hip": 177.83,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 99,
+      "timestamp_s": 4.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.14,
+        "right_shoulder": 35.84,
+        "left_elbow": null,
+        "right_elbow": 161.34,
+        "left_wrist": null,
+        "right_wrist": 140.0,
+        "left_hip": 153.5,
+        "right_hip": 177.54,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 100,
+      "timestamp_s": 4.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.02,
+        "right_shoulder": 36.61,
+        "left_elbow": null,
+        "right_elbow": 161.75,
+        "left_wrist": null,
+        "right_wrist": 140.95,
+        "left_hip": 154.23,
+        "right_hip": 177.25,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 101,
+      "timestamp_s": 4.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.25,
+        "right_shoulder": 36.55,
+        "left_elbow": null,
+        "right_elbow": 161.68,
+        "left_wrist": null,
+        "right_wrist": 140.91,
+        "left_hip": 154.41,
+        "right_hip": 176.87,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 102,
+      "timestamp_s": 4.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.32,
+        "right_shoulder": 39.32,
+        "left_elbow": null,
+        "right_elbow": 160.49,
+        "left_wrist": null,
+        "right_wrist": 140.58,
+        "left_hip": 155.1,
+        "right_hip": 176.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 103,
+      "timestamp_s": 4.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.51,
+        "right_shoulder": 39.14,
+        "left_elbow": null,
+        "right_elbow": 160.46,
+        "left_wrist": null,
+        "right_wrist": 139.46,
+        "left_hip": 153.61,
+        "right_hip": 179.47,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 104,
+      "timestamp_s": 4.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.29,
+        "right_shoulder": 38.98,
+        "left_elbow": null,
+        "right_elbow": 159.9,
+        "left_wrist": null,
+        "right_wrist": 139.1,
+        "left_hip": 153.05,
+        "right_hip": 179.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 105,
+      "timestamp_s": 4.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.54,
+        "right_shoulder": 42.3,
+        "left_elbow": null,
+        "right_elbow": 160.13,
+        "left_wrist": null,
+        "right_wrist": 141.42,
+        "left_hip": 151.72,
+        "right_hip": 177.38,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 106,
+      "timestamp_s": 4.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.22,
+        "right_shoulder": 34.49,
+        "left_elbow": null,
+        "right_elbow": 163.42,
+        "left_wrist": null,
+        "right_wrist": 143.79,
+        "left_hip": 154.24,
+        "right_hip": 178.72,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 107,
+      "timestamp_s": 4.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 27.23,
+        "right_shoulder": 19.41,
+        "left_elbow": null,
+        "right_elbow": 131.44,
+        "left_wrist": null,
+        "right_wrist": 47.03,
+        "left_hip": 93.4,
+        "right_hip": 36.5,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 108,
+      "timestamp_s": 4.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 37.68,
+        "right_shoulder": 5.35,
+        "left_elbow": null,
+        "right_elbow": 134.88,
+        "left_wrist": null,
+        "right_wrist": 156.55,
+        "left_hip": 161.37,
+        "right_hip": 105.26,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 109,
+      "timestamp_s": 4.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 35.06,
+        "right_shoulder": 20.41,
+        "left_elbow": null,
+        "right_elbow": 168.19,
+        "left_wrist": null,
+        "right_wrist": 122.45,
+        "left_hip": 167.39,
+        "right_hip": 164.31,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 110,
+      "timestamp_s": 4.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 27.92,
+        "right_shoulder": 10.41,
+        "left_elbow": null,
+        "right_elbow": 142.15,
+        "left_wrist": null,
+        "right_wrist": 156.75,
+        "left_hip": 164.6,
+        "right_hip": 156.63,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 111,
+      "timestamp_s": 4.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 25.16,
+        "right_shoulder": 16.52,
+        "left_elbow": null,
+        "right_elbow": 145.65,
+        "left_wrist": null,
+        "right_wrist": 159.78,
+        "left_hip": 170.53,
+        "right_hip": 176.84,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 112,
+      "timestamp_s": 4.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.11,
+        "right_shoulder": 28.25,
+        "left_elbow": 167.86,
+        "right_elbow": 162.09,
+        "left_wrist": null,
+        "right_wrist": 145.4,
+        "left_hip": 177.72,
+        "right_hip": 155.88,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 113,
+      "timestamp_s": 4.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 24.0,
+        "right_shoulder": 10.32,
+        "left_elbow": 144.29,
+        "right_elbow": 121.05,
+        "left_wrist": null,
+        "right_wrist": 170.61,
+        "left_hip": 164.64,
+        "right_hip": 152.85,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 114,
+      "timestamp_s": 4.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.89,
+        "right_shoulder": 14.18,
+        "left_elbow": 152.86,
+        "right_elbow": 146.18,
+        "left_wrist": null,
+        "right_wrist": 152.59,
+        "left_hip": 175.51,
+        "right_hip": 162.9,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 115,
+      "timestamp_s": 4.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.38,
+        "right_shoulder": 9.61,
+        "left_elbow": 137.62,
+        "right_elbow": 158.29,
+        "left_wrist": null,
+        "right_wrist": 129.21,
+        "left_hip": 176.51,
+        "right_hip": 153.72,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 116,
+      "timestamp_s": 4.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.74,
+        "right_shoulder": 17.39,
+        "left_elbow": 130.55,
+        "right_elbow": 168.22,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.65,
+        "right_hip": 159.0,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 117,
+      "timestamp_s": 4.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.92,
+        "right_shoulder": 18.02,
+        "left_elbow": 114.97,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 160.82,
+        "right_hip": 148.52,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 118,
+      "timestamp_s": 4.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.85,
+        "right_shoulder": 19.83,
+        "left_elbow": 117.2,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 160.67,
+        "right_hip": 150.54,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 119,
+      "timestamp_s": 4.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.91,
+        "right_shoulder": 18.62,
+        "left_elbow": 95.58,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 162.32,
+        "right_hip": 147.83,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 120,
+      "timestamp_s": 5.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.41,
+        "right_shoulder": 17.17,
+        "left_elbow": 105.5,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.02,
+        "right_hip": 149.75,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 121,
+      "timestamp_s": 5.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.87,
+        "right_shoulder": 18.75,
+        "left_elbow": 88.54,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 166.29,
+        "right_hip": 149.45,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 122,
+      "timestamp_s": 5.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 24.33,
+        "right_shoulder": 19.06,
+        "left_elbow": 85.62,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 152.87,
+        "right_hip": 140.06,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 123,
+      "timestamp_s": 5.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.55,
+        "right_shoulder": 19.15,
+        "left_elbow": 88.71,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.29,
+        "right_hip": 152.83,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 124,
+      "timestamp_s": 5.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 29.26,
+        "right_shoulder": 19.85,
+        "left_elbow": 89.63,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 157.46,
+        "right_hip": 143.97,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 125,
+      "timestamp_s": 5.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.03,
+        "right_shoulder": 19.65,
+        "left_elbow": 91.69,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 152.46,
+        "right_hip": 140.05,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 126,
+      "timestamp_s": 5.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 30.01,
+        "right_shoulder": 19.89,
+        "left_elbow": 94.98,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 160.05,
+        "right_hip": 150.24,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 127,
+      "timestamp_s": 5.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.8,
+        "right_shoulder": 11.46,
+        "left_elbow": 145.85,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.16,
+        "right_hip": 143.5,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 128,
+      "timestamp_s": 5.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.04,
+        "right_shoulder": 15.39,
+        "left_elbow": 110.94,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 165.05,
+        "right_hip": 147.41,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 129,
+      "timestamp_s": 5.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.15,
+        "right_shoulder": 18.28,
+        "left_elbow": 124.82,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 154.81,
+        "right_hip": 149.33,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 130,
+      "timestamp_s": 5.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.32,
+        "right_shoulder": 20.11,
+        "left_elbow": 91.26,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 155.7,
+        "right_hip": 146.82,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 131,
+      "timestamp_s": 5.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.7,
+        "right_shoulder": 19.9,
+        "left_elbow": 75.59,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 165.62,
+        "right_hip": 159.31,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 132,
+      "timestamp_s": 5.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.01,
+        "right_shoulder": 19.57,
+        "left_elbow": 77.55,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 165.22,
+        "right_hip": 160.73,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 133,
+      "timestamp_s": 5.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.51,
+        "right_shoulder": 20.67,
+        "left_elbow": 103.3,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 156.62,
+        "right_hip": 151.33,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 134,
+      "timestamp_s": 5.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.26,
+        "right_shoulder": 19.74,
+        "left_elbow": 101.02,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 158.74,
+        "right_hip": 148.37,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 135,
+      "timestamp_s": 5.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.93,
+        "right_shoulder": 19.41,
+        "left_elbow": 113.56,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 158.84,
+        "right_hip": 147.7,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 136,
+      "timestamp_s": 5.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.39,
+        "right_shoulder": 18.22,
+        "left_elbow": 104.25,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 163.83,
+        "right_hip": 162.37,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 137,
+      "timestamp_s": 5.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.94,
+        "right_shoulder": 18.23,
+        "left_elbow": 91.36,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 172.87,
+        "right_hip": 164.22,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 138,
+      "timestamp_s": 5.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.64,
+        "right_shoulder": 17.87,
+        "left_elbow": 93.96,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 170.5,
+        "right_hip": 163.8,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 139,
+      "timestamp_s": 5.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.0,
+        "right_shoulder": 19.68,
+        "left_elbow": 91.07,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 172.59,
+        "right_hip": 161.44,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 140,
+      "timestamp_s": 5.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.59,
+        "right_shoulder": 19.11,
+        "left_elbow": 114.03,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.97,
+        "right_hip": 166.17,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 141,
+      "timestamp_s": 5.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 25.99,
+        "right_shoulder": 19.04,
+        "left_elbow": 110.14,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 169.4,
+        "right_hip": 161.65,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 142,
+      "timestamp_s": 5.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 28.84,
+        "right_shoulder": 19.92,
+        "left_elbow": 100.27,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 175.76,
+        "right_hip": 165.04,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 143,
+      "timestamp_s": 5.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.75,
+        "right_shoulder": 19.63,
+        "left_elbow": 108.09,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 173.5,
+        "right_hip": 163.86,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 144,
+      "timestamp_s": 6.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.62,
+        "right_shoulder": 19.16,
+        "left_elbow": 103.77,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 172.65,
+        "right_hip": 163.0,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 145,
+      "timestamp_s": 6.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.22,
+        "right_shoulder": 18.57,
+        "left_elbow": 113.92,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 167.99,
+        "right_hip": 158.86,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 146,
+      "timestamp_s": 6.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.07,
+        "right_shoulder": 18.43,
+        "left_elbow": 108.79,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 166.94,
+        "right_hip": 157.35,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 147,
+      "timestamp_s": 6.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 23.66,
+        "right_shoulder": 13.11,
+        "left_elbow": 141.7,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 171.0,
+        "right_hip": 167.19,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 148,
+      "timestamp_s": 6.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.08,
+        "right_shoulder": 18.7,
+        "left_elbow": 117.92,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 177.52,
+        "right_hip": 167.76,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 149,
+      "timestamp_s": 6.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 30.65,
+        "right_shoulder": 18.82,
+        "left_elbow": 100.96,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 173.09,
+        "right_hip": 164.45,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 150,
+      "timestamp_s": 6.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 33.28,
+        "right_shoulder": 17.18,
+        "left_elbow": 83.61,
+        "right_elbow": null,
+        "left_wrist": null,
+        "right_wrist": null,
+        "left_hip": 174.98,
+        "right_hip": 166.31,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 151,
+      "timestamp_s": 6.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.48,
+        "right_shoulder": 17.42,
+        "left_elbow": 74.1,
+        "right_elbow": null,
+        "left_wrist": 150.88,
+        "right_wrist": null,
+        "left_hip": 176.52,
+        "right_hip": 165.53,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 152,
+      "timestamp_s": 6.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.25,
+        "right_shoulder": 18.84,
+        "left_elbow": 62.09,
+        "right_elbow": null,
+        "left_wrist": 154.42,
+        "right_wrist": null,
+        "left_hip": 175.16,
+        "right_hip": 158.01,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 153,
+      "timestamp_s": 6.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 36.15,
+        "right_shoulder": 18.05,
+        "left_elbow": 57.27,
+        "right_elbow": null,
+        "left_wrist": 158.13,
+        "right_wrist": null,
+        "left_hip": 175.39,
+        "right_hip": 152.9,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 154,
+      "timestamp_s": 6.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.97,
+        "right_shoulder": 18.39,
+        "left_elbow": 51.25,
+        "right_elbow": null,
+        "left_wrist": 154.31,
+        "right_wrist": null,
+        "left_hip": 171.0,
+        "right_hip": 158.91,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 155,
+      "timestamp_s": 6.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 28.34,
+        "right_shoulder": 20.5,
+        "left_elbow": 48.93,
+        "right_elbow": null,
+        "left_wrist": 151.77,
+        "right_wrist": null,
+        "left_hip": 169.56,
+        "right_hip": 158.04,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 156,
+      "timestamp_s": 6.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 27.29,
+        "right_shoulder": 21.09,
+        "left_elbow": 51.86,
+        "right_elbow": null,
+        "left_wrist": 150.42,
+        "right_wrist": null,
+        "left_hip": 173.68,
+        "right_hip": 161.09,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 157,
+      "timestamp_s": 6.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 28.77,
+        "right_shoulder": 20.28,
+        "left_elbow": 52.45,
+        "right_elbow": null,
+        "left_wrist": 143.64,
+        "right_wrist": null,
+        "left_hip": 172.37,
+        "right_hip": 164.94,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 158,
+      "timestamp_s": 6.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 30.27,
+        "right_shoulder": 23.29,
+        "left_elbow": 55.91,
+        "right_elbow": null,
+        "left_wrist": 149.03,
+        "right_wrist": null,
+        "left_hip": 177.24,
+        "right_hip": 165.69,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 159,
+      "timestamp_s": 6.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 28.48,
+        "right_shoulder": 19.64,
+        "left_elbow": 58.3,
+        "right_elbow": null,
+        "left_wrist": 148.07,
+        "right_wrist": null,
+        "left_hip": 171.93,
+        "right_hip": 164.87,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 160,
+      "timestamp_s": 6.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 27.26,
+        "right_shoulder": 18.29,
+        "left_elbow": 60.01,
+        "right_elbow": null,
+        "left_wrist": 144.94,
+        "right_wrist": null,
+        "left_hip": 171.05,
+        "right_hip": 160.7,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 161,
+      "timestamp_s": 6.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.87,
+        "right_shoulder": 17.11,
+        "left_elbow": 56.06,
+        "right_elbow": null,
+        "left_wrist": 150.01,
+        "right_wrist": null,
+        "left_hip": 171.7,
+        "right_hip": 158.0,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 162,
+      "timestamp_s": 6.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 26.29,
+        "right_shoulder": 17.77,
+        "left_elbow": 58.79,
+        "right_elbow": null,
+        "left_wrist": 146.45,
+        "right_wrist": null,
+        "left_hip": 167.04,
+        "right_hip": 155.14,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 163,
+      "timestamp_s": 6.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 48.18,
+        "right_shoulder": 12.22,
+        "left_elbow": 78.82,
+        "right_elbow": null,
+        "left_wrist": 159.83,
+        "right_wrist": null,
+        "left_hip": 173.15,
+        "right_hip": 169.24,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 164,
+      "timestamp_s": 6.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 51.74,
+        "right_shoulder": 13.02,
+        "left_elbow": 83.91,
+        "right_elbow": null,
+        "left_wrist": 158.33,
+        "right_wrist": null,
+        "left_hip": 169.48,
+        "right_hip": 171.49,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 165,
+      "timestamp_s": 6.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 39.98,
+        "right_shoulder": 2.69,
+        "left_elbow": 64.63,
+        "right_elbow": null,
+        "left_wrist": 144.57,
+        "right_wrist": null,
+        "left_hip": 173.98,
+        "right_hip": 172.92,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 166,
+      "timestamp_s": 6.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.59,
+        "right_shoulder": 16.64,
+        "left_elbow": 62.49,
+        "right_elbow": null,
+        "left_wrist": 145.74,
+        "right_wrist": null,
+        "left_hip": 165.41,
+        "right_hip": 153.01,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 167,
+      "timestamp_s": 6.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.64,
+        "right_shoulder": 15.63,
+        "left_elbow": 60.54,
+        "right_elbow": null,
+        "left_wrist": 147.95,
+        "right_wrist": null,
+        "left_hip": 174.85,
+        "right_hip": 167.11,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 168,
+      "timestamp_s": 7.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.94,
+        "right_shoulder": 18.57,
+        "left_elbow": 59.85,
+        "right_elbow": null,
+        "left_wrist": 146.87,
+        "right_wrist": null,
+        "left_hip": 167.11,
+        "right_hip": 155.03,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 169,
+      "timestamp_s": 7.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.89,
+        "right_shoulder": 20.08,
+        "left_elbow": 59.44,
+        "right_elbow": null,
+        "left_wrist": 148.42,
+        "right_wrist": null,
+        "left_hip": 171.33,
+        "right_hip": 159.4,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 170,
+      "timestamp_s": 7.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 25.51,
+        "right_shoulder": 21.53,
+        "left_elbow": 62.12,
+        "right_elbow": null,
+        "left_wrist": 147.35,
+        "right_wrist": null,
+        "left_hip": 164.26,
+        "right_hip": 155.87,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 171,
+      "timestamp_s": 7.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 32.8,
+        "right_shoulder": 5.99,
+        "left_elbow": 100.96,
+        "right_elbow": null,
+        "left_wrist": 147.31,
+        "right_wrist": null,
+        "left_hip": 177.49,
+        "right_hip": 170.61,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 172,
+      "timestamp_s": 7.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 35.37,
+        "right_shoulder": 1.5,
+        "left_elbow": 99.56,
+        "right_elbow": null,
+        "left_wrist": 140.65,
+        "right_wrist": null,
+        "left_hip": 168.06,
+        "right_hip": 172.22,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 173,
+      "timestamp_s": 7.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 28.92,
+        "right_shoulder": 19.69,
+        "left_elbow": 79.59,
+        "right_elbow": null,
+        "left_wrist": 133.75,
+        "right_wrist": null,
+        "left_hip": 176.66,
+        "right_hip": 166.29,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 174,
+      "timestamp_s": 7.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.68,
+        "right_shoulder": 20.41,
+        "left_elbow": 78.66,
+        "right_elbow": null,
+        "left_wrist": 131.39,
+        "right_wrist": null,
+        "left_hip": 167.35,
+        "right_hip": 164.62,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 175,
+      "timestamp_s": 7.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 24.15,
+        "right_shoulder": 20.74,
+        "left_elbow": 71.64,
+        "right_elbow": null,
+        "left_wrist": 134.82,
+        "right_wrist": null,
+        "left_hip": 167.48,
+        "right_hip": 158.25,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 176,
+      "timestamp_s": 7.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.4,
+        "right_shoulder": 23.29,
+        "left_elbow": 153.94,
+        "right_elbow": null,
+        "left_wrist": 145.33,
+        "right_wrist": null,
+        "left_hip": 171.8,
+        "right_hip": 171.67,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 177,
+      "timestamp_s": 7.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 10.26,
+        "right_shoulder": 11.75,
+        "left_elbow": 140.42,
+        "right_elbow": null,
+        "left_wrist": 128.04,
+        "right_wrist": null,
+        "left_hip": 173.15,
+        "right_hip": 175.21,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 178,
+      "timestamp_s": 7.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.95,
+        "right_shoulder": 21.78,
+        "left_elbow": 129.18,
+        "right_elbow": null,
+        "left_wrist": 108.47,
+        "right_wrist": null,
+        "left_hip": 173.48,
+        "right_hip": 158.51,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 179,
+      "timestamp_s": 7.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.33,
+        "right_shoulder": 19.04,
+        "left_elbow": 147.13,
+        "right_elbow": null,
+        "left_wrist": 166.65,
+        "right_wrist": null,
+        "left_hip": 156.9,
+        "right_hip": 165.42,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 180,
+      "timestamp_s": 7.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 31.66,
+        "right_shoulder": 36.64,
+        "left_elbow": 169.64,
+        "right_elbow": null,
+        "left_wrist": 121.7,
+        "right_wrist": null,
+        "left_hip": 147.39,
+        "right_hip": 141.82,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 181,
+      "timestamp_s": 7.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.53,
+        "right_shoulder": 10.43,
+        "left_elbow": 157.85,
+        "right_elbow": null,
+        "left_wrist": 119.7,
+        "right_wrist": null,
+        "left_hip": 131.31,
+        "right_hip": 126.2,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 182,
+      "timestamp_s": 7.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.26,
+        "right_shoulder": 13.11,
+        "left_elbow": 162.34,
+        "right_elbow": null,
+        "left_wrist": 120.29,
+        "right_wrist": null,
+        "left_hip": 140.09,
+        "right_hip": 141.89,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 183,
+      "timestamp_s": 7.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.38,
+        "right_shoulder": 10.93,
+        "left_elbow": 161.35,
+        "right_elbow": null,
+        "left_wrist": 133.47,
+        "right_wrist": null,
+        "left_hip": 142.91,
+        "right_hip": 145.76,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 184,
+      "timestamp_s": 7.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.0,
+        "right_shoulder": 12.07,
+        "left_elbow": 165.27,
+        "right_elbow": null,
+        "left_wrist": 134.03,
+        "right_wrist": null,
+        "left_hip": 146.34,
+        "right_hip": 148.29,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 185,
+      "timestamp_s": 7.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.74,
+        "right_shoulder": 14.38,
+        "left_elbow": 164.26,
+        "right_elbow": null,
+        "left_wrist": 135.9,
+        "right_wrist": null,
+        "left_hip": 150.38,
+        "right_hip": 148.08,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 186,
+      "timestamp_s": 7.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.25,
+        "right_shoulder": 11.91,
+        "left_elbow": 163.4,
+        "right_elbow": null,
+        "left_wrist": 131.42,
+        "right_wrist": null,
+        "left_hip": 153.65,
+        "right_hip": 142.75,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 187,
+      "timestamp_s": 7.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.52,
+        "right_shoulder": 12.96,
+        "left_elbow": 165.78,
+        "right_elbow": null,
+        "left_wrist": 137.62,
+        "right_wrist": null,
+        "left_hip": 156.73,
+        "right_hip": 145.47,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 188,
+      "timestamp_s": 7.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.47,
+        "right_shoulder": 12.96,
+        "left_elbow": 168.67,
+        "right_elbow": 168.73,
+        "left_wrist": 140.94,
+        "right_wrist": 134.94,
+        "left_hip": 160.55,
+        "right_hip": 144.99,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 189,
+      "timestamp_s": 7.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.62,
+        "right_shoulder": 15.8,
+        "left_elbow": 168.33,
+        "right_elbow": 167.14,
+        "left_wrist": 142.65,
+        "right_wrist": 134.17,
+        "left_hip": 157.24,
+        "right_hip": 145.37,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 190,
+      "timestamp_s": 7.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.52,
+        "right_shoulder": 16.05,
+        "left_elbow": 167.42,
+        "right_elbow": 167.7,
+        "left_wrist": 144.14,
+        "right_wrist": 128.26,
+        "left_hip": 157.59,
+        "right_hip": 143.71,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 191,
+      "timestamp_s": 7.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.58,
+        "right_shoulder": 19.89,
+        "left_elbow": 167.77,
+        "right_elbow": 171.82,
+        "left_wrist": 146.95,
+        "right_wrist": 138.35,
+        "left_hip": 157.13,
+        "right_hip": 149.07,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 192,
+      "timestamp_s": 8.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.0,
+        "right_shoulder": 18.8,
+        "left_elbow": 169.05,
+        "right_elbow": 172.75,
+        "left_wrist": 151.22,
+        "right_wrist": 137.81,
+        "left_hip": 158.14,
+        "right_hip": 153.06,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 193,
+      "timestamp_s": 8.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.31,
+        "right_shoulder": 18.01,
+        "left_elbow": 170.62,
+        "right_elbow": 172.96,
+        "left_wrist": 150.8,
+        "right_wrist": 139.26,
+        "left_hip": 156.35,
+        "right_hip": 154.04,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 194,
+      "timestamp_s": 8.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.22,
+        "right_shoulder": 21.09,
+        "left_elbow": 171.84,
+        "right_elbow": 173.43,
+        "left_wrist": 151.59,
+        "right_wrist": 136.95,
+        "left_hip": 157.49,
+        "right_hip": 157.37,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 195,
+      "timestamp_s": 8.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 19.69,
+        "right_shoulder": 23.42,
+        "left_elbow": 170.58,
+        "right_elbow": 171.15,
+        "left_wrist": 150.67,
+        "right_wrist": 132.41,
+        "left_hip": 157.69,
+        "right_hip": 158.48,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 196,
+      "timestamp_s": 8.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 15.27,
+        "right_shoulder": 25.49,
+        "left_elbow": 167.46,
+        "right_elbow": 169.06,
+        "left_wrist": 146.54,
+        "right_wrist": 136.34,
+        "left_hip": 163.15,
+        "right_hip": 160.0,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 197,
+      "timestamp_s": 8.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.47,
+        "right_shoulder": 23.93,
+        "left_elbow": 169.12,
+        "right_elbow": 167.31,
+        "left_wrist": 144.37,
+        "right_wrist": 137.32,
+        "left_hip": 159.47,
+        "right_hip": 158.11,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 198,
+      "timestamp_s": 8.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.38,
+        "right_shoulder": 20.47,
+        "left_elbow": 168.71,
+        "right_elbow": 160.61,
+        "left_wrist": 144.91,
+        "right_wrist": 135.34,
+        "left_hip": 162.49,
+        "right_hip": 158.05,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 199,
+      "timestamp_s": 8.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 16.13,
+        "right_shoulder": 15.43,
+        "left_elbow": 167.53,
+        "right_elbow": 163.97,
+        "left_wrist": 142.45,
+        "right_wrist": 135.55,
+        "left_hip": 154.18,
+        "right_hip": 156.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 200,
+      "timestamp_s": 8.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.68,
+        "right_shoulder": 13.53,
+        "left_elbow": 166.99,
+        "right_elbow": 163.21,
+        "left_wrist": 141.41,
+        "right_wrist": 136.08,
+        "left_hip": 158.76,
+        "right_hip": 156.14,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 201,
+      "timestamp_s": 8.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 21.27,
+        "right_shoulder": 13.53,
+        "left_elbow": 166.56,
+        "right_elbow": 161.88,
+        "left_wrist": 138.5,
+        "right_wrist": 136.53,
+        "left_hip": 157.7,
+        "right_hip": 152.8,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 202,
+      "timestamp_s": 8.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.64,
+        "right_shoulder": 13.86,
+        "left_elbow": 166.53,
+        "right_elbow": 163.16,
+        "left_wrist": 130.65,
+        "right_wrist": 134.41,
+        "left_hip": 154.81,
+        "right_hip": 150.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 203,
+      "timestamp_s": 8.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 18.03,
+        "right_shoulder": 13.11,
+        "left_elbow": 164.12,
+        "right_elbow": 162.62,
+        "left_wrist": 125.05,
+        "right_wrist": 135.74,
+        "left_hip": 159.24,
+        "right_hip": 149.89,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 204,
+      "timestamp_s": 8.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.16,
+        "right_shoulder": 10.29,
+        "left_elbow": 158.58,
+        "right_elbow": 163.46,
+        "left_wrist": 118.2,
+        "right_wrist": 136.52,
+        "left_hip": 155.71,
+        "right_hip": 148.87,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 205,
+      "timestamp_s": 8.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 23.37,
+        "right_shoulder": 10.38,
+        "left_elbow": 157.23,
+        "right_elbow": 162.7,
+        "left_wrist": 117.59,
+        "right_wrist": 140.0,
+        "left_hip": 155.83,
+        "right_hip": 145.02,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 206,
+      "timestamp_s": 8.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.96,
+        "right_shoulder": 9.74,
+        "left_elbow": 157.75,
+        "right_elbow": 168.1,
+        "left_wrist": 116.67,
+        "right_wrist": 139.07,
+        "left_hip": 151.09,
+        "right_hip": 145.75,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 207,
+      "timestamp_s": 8.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 22.24,
+        "right_shoulder": 15.42,
+        "left_elbow": 158.73,
+        "right_elbow": 165.32,
+        "left_wrist": 107.73,
+        "right_wrist": 133.34,
+        "left_hip": 148.3,
+        "right_hip": 150.43,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 208,
+      "timestamp_s": 8.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 20.89,
+        "right_shoulder": 16.3,
+        "left_elbow": 158.89,
+        "right_elbow": 166.94,
+        "left_wrist": null,
+        "right_wrist": 130.68,
+        "left_hip": 143.04,
+        "right_hip": 149.19,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 209,
+      "timestamp_s": 8.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 17.42,
+        "right_shoulder": 18.91,
+        "left_elbow": 164.34,
+        "right_elbow": 168.18,
+        "left_wrist": null,
+        "right_wrist": 130.29,
+        "left_hip": 146.2,
+        "right_hip": 149.63,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 210,
+      "timestamp_s": 8.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.4,
+        "right_shoulder": 23.25,
+        "left_elbow": 169.16,
+        "right_elbow": 167.33,
+        "left_wrist": null,
+        "right_wrist": 131.78,
+        "left_hip": 143.36,
+        "right_hip": 150.38,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 211,
+      "timestamp_s": 8.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.21,
+        "right_shoulder": 24.95,
+        "left_elbow": 170.16,
+        "right_elbow": 166.08,
+        "left_wrist": 130.47,
+        "right_wrist": 132.25,
+        "left_hip": 146.94,
+        "right_hip": 159.02,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 212,
+      "timestamp_s": 8.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.07,
+        "right_shoulder": 23.39,
+        "left_elbow": 170.07,
+        "right_elbow": 166.06,
+        "left_wrist": 133.27,
+        "right_wrist": 129.87,
+        "left_hip": 151.2,
+        "right_hip": 160.8,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 213,
+      "timestamp_s": 8.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.65,
+        "right_shoulder": 20.4,
+        "left_elbow": 170.27,
+        "right_elbow": 169.92,
+        "left_wrist": 138.02,
+        "right_wrist": 134.72,
+        "left_hip": 157.43,
+        "right_hip": 161.73,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 214,
+      "timestamp_s": 8.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.59,
+        "right_shoulder": 13.21,
+        "left_elbow": 171.42,
+        "right_elbow": 169.54,
+        "left_wrist": 143.33,
+        "right_wrist": 137.09,
+        "left_hip": 153.84,
+        "right_hip": 153.74,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 215,
+      "timestamp_s": 8.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 14.45,
+        "right_shoulder": 16.23,
+        "left_elbow": 172.18,
+        "right_elbow": 167.69,
+        "left_wrist": 137.17,
+        "right_wrist": 126.67,
+        "left_hip": 152.45,
+        "right_hip": 156.08,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 216,
+      "timestamp_s": 9.0,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.94,
+        "right_shoulder": 18.04,
+        "left_elbow": 172.7,
+        "right_elbow": 170.03,
+        "left_wrist": 132.69,
+        "right_wrist": 122.11,
+        "left_hip": 152.8,
+        "right_hip": 159.08,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 217,
+      "timestamp_s": 9.0417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.18,
+        "right_shoulder": 20.39,
+        "left_elbow": 172.26,
+        "right_elbow": 168.81,
+        "left_wrist": 132.88,
+        "right_wrist": 121.77,
+        "left_hip": 153.24,
+        "right_hip": 160.82,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 218,
+      "timestamp_s": 9.0833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.01,
+        "right_shoulder": 23.87,
+        "left_elbow": 171.38,
+        "right_elbow": 168.96,
+        "left_wrist": 136.38,
+        "right_wrist": 125.67,
+        "left_hip": 154.12,
+        "right_hip": 160.72,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 219,
+      "timestamp_s": 9.125,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.33,
+        "right_shoulder": 23.76,
+        "left_elbow": 171.87,
+        "right_elbow": 167.53,
+        "left_wrist": 134.14,
+        "right_wrist": 120.78,
+        "left_hip": 153.38,
+        "right_hip": 160.16,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 220,
+      "timestamp_s": 9.1667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.06,
+        "right_shoulder": 21.61,
+        "left_elbow": 171.67,
+        "right_elbow": 168.52,
+        "left_wrist": 136.07,
+        "right_wrist": 121.82,
+        "left_hip": 154.0,
+        "right_hip": 160.77,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 221,
+      "timestamp_s": 9.2083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.03,
+        "right_shoulder": 20.05,
+        "left_elbow": 171.55,
+        "right_elbow": 167.73,
+        "left_wrist": 136.23,
+        "right_wrist": 120.4,
+        "left_hip": 154.85,
+        "right_hip": 161.35,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 222,
+      "timestamp_s": 9.25,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.51,
+        "right_shoulder": 20.49,
+        "left_elbow": 170.97,
+        "right_elbow": 167.11,
+        "left_wrist": 136.0,
+        "right_wrist": 117.03,
+        "left_hip": 156.24,
+        "right_hip": 163.95,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 223,
+      "timestamp_s": 9.2917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.77,
+        "right_shoulder": 21.8,
+        "left_elbow": 171.11,
+        "right_elbow": 168.58,
+        "left_wrist": 138.01,
+        "right_wrist": 122.9,
+        "left_hip": 155.16,
+        "right_hip": 165.17,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 224,
+      "timestamp_s": 9.3333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.2,
+        "right_shoulder": 23.75,
+        "left_elbow": 171.98,
+        "right_elbow": 167.61,
+        "left_wrist": 139.11,
+        "right_wrist": 126.36,
+        "left_hip": 153.74,
+        "right_hip": 166.32,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 225,
+      "timestamp_s": 9.375,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.19,
+        "right_shoulder": 24.48,
+        "left_elbow": 172.2,
+        "right_elbow": 167.38,
+        "left_wrist": 139.78,
+        "right_wrist": 127.73,
+        "left_hip": 155.63,
+        "right_hip": 167.19,
+        "left_knee": null,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 226,
+      "timestamp_s": 9.4167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.2,
+        "right_shoulder": 29.16,
+        "left_elbow": 172.82,
+        "right_elbow": 167.0,
+        "left_wrist": 140.34,
+        "right_wrist": 127.77,
+        "left_hip": 157.22,
+        "right_hip": 167.57,
+        "left_knee": 170.84,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 227,
+      "timestamp_s": 9.4583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.33,
+        "right_shoulder": 29.69,
+        "left_elbow": 172.55,
+        "right_elbow": 162.05,
+        "left_wrist": 141.51,
+        "right_wrist": 124.81,
+        "left_hip": 158.36,
+        "right_hip": 168.45,
+        "left_knee": 170.86,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 228,
+      "timestamp_s": 9.5,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.37,
+        "right_shoulder": 22.98,
+        "left_elbow": 168.38,
+        "right_elbow": 162.16,
+        "left_wrist": 145.15,
+        "right_wrist": 129.82,
+        "left_hip": 153.89,
+        "right_hip": 160.74,
+        "left_knee": 171.14,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 229,
+      "timestamp_s": 9.5417,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.45,
+        "right_shoulder": 22.58,
+        "left_elbow": 168.36,
+        "right_elbow": 162.71,
+        "left_wrist": 143.83,
+        "right_wrist": 129.64,
+        "left_hip": 154.7,
+        "right_hip": 160.63,
+        "left_knee": 169.35,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 230,
+      "timestamp_s": 9.5833,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.52,
+        "right_shoulder": 23.76,
+        "left_elbow": 167.71,
+        "right_elbow": 162.47,
+        "left_wrist": 143.03,
+        "right_wrist": 131.74,
+        "left_hip": 155.79,
+        "right_hip": 158.9,
+        "left_knee": 171.14,
+        "right_knee": null,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 231,
+      "timestamp_s": 9.625,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.32,
+        "right_shoulder": 23.68,
+        "left_elbow": 168.16,
+        "right_elbow": 161.95,
+        "left_wrist": 143.22,
+        "right_wrist": 132.19,
+        "left_hip": 156.19,
+        "right_hip": 158.71,
+        "left_knee": 168.21,
+        "right_knee": 169.85,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 232,
+      "timestamp_s": 9.6667,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.75,
+        "right_shoulder": 23.52,
+        "left_elbow": 168.86,
+        "right_elbow": 161.22,
+        "left_wrist": 142.78,
+        "right_wrist": 134.07,
+        "left_hip": 154.36,
+        "right_hip": 158.73,
+        "left_knee": 169.98,
+        "right_knee": 169.46,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 233,
+      "timestamp_s": 9.7083,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.63,
+        "right_shoulder": 21.77,
+        "left_elbow": 168.34,
+        "right_elbow": 163.61,
+        "left_wrist": 139.53,
+        "right_wrist": 138.0,
+        "left_hip": 151.77,
+        "right_hip": 155.13,
+        "left_knee": 170.08,
+        "right_knee": 170.65,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 234,
+      "timestamp_s": 9.75,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 11.38,
+        "right_shoulder": 20.44,
+        "left_elbow": 168.11,
+        "right_elbow": 165.32,
+        "left_wrist": 136.32,
+        "right_wrist": 137.76,
+        "left_hip": 151.32,
+        "right_hip": 154.77,
+        "left_knee": 169.42,
+        "right_knee": 169.27,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 235,
+      "timestamp_s": 9.7917,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.26,
+        "right_shoulder": 15.36,
+        "left_elbow": 167.54,
+        "right_elbow": 165.5,
+        "left_wrist": 127.68,
+        "right_wrist": 136.69,
+        "left_hip": 149.04,
+        "right_hip": 154.86,
+        "left_knee": 169.97,
+        "right_knee": 172.06,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 236,
+      "timestamp_s": 9.8333,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.17,
+        "right_shoulder": 14.96,
+        "left_elbow": 167.4,
+        "right_elbow": 166.3,
+        "left_wrist": 125.81,
+        "right_wrist": 138.3,
+        "left_hip": 148.09,
+        "right_hip": 156.14,
+        "left_knee": 171.03,
+        "right_knee": 173.9,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 237,
+      "timestamp_s": 9.875,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 12.73,
+        "right_shoulder": 15.54,
+        "left_elbow": 167.95,
+        "right_elbow": 168.37,
+        "left_wrist": 124.23,
+        "right_wrist": 136.54,
+        "left_hip": 148.45,
+        "right_hip": 154.71,
+        "left_knee": 170.97,
+        "right_knee": 177.92,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 238,
+      "timestamp_s": 9.9167,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.22,
+        "right_shoulder": 17.03,
+        "left_elbow": 166.95,
+        "right_elbow": 165.48,
+        "left_wrist": 122.29,
+        "right_wrist": 133.57,
+        "left_hip": 148.73,
+        "right_hip": 155.46,
+        "left_knee": 171.72,
+        "right_knee": 179.07,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    },
+    {
+      "frame": 239,
+      "timestamp_s": 9.9583,
+      "pose_detected": true,
+      "joints": {
+        "left_shoulder": 13.15,
+        "right_shoulder": 18.42,
+        "left_elbow": 167.13,
+        "right_elbow": 167.29,
+        "left_wrist": 123.43,
+        "right_wrist": 137.01,
+        "left_hip": 148.49,
+        "right_hip": 156.37,
+        "left_knee": 172.13,
+        "right_knee": 179.72,
+        "left_ankle": null,
+        "right_ankle": null
+      }
+    }
+  ]
+}
