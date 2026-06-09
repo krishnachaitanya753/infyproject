@@ -310,7 +310,7 @@ def _cli():
         print(f"[Stage {stage}] {msg}")
 
     result = train_ppo(args.trajectory, args.output_dir, cfg=cfg, cb=_cb)
-    print("\n─── PPO Training Result ───")
+    print("\n=== PPO Training Result ===")
     print(json.dumps({k: v for k, v in result.items() if k != "reward_history"}, indent=2))
 
 
