@@ -3,7 +3,7 @@ name = "infyproject"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "fastapi>=0.115.0",
     "google-genai>=1.0.0",
@@ -20,4 +20,6 @@ dependencies = [
     "gymnasium>=1.2.3",
     "stable-baselines3>=2.8.0",
     "mujoco>=3.9.0",
+    "wandb>=0.17.0",
+    "imageio[ffmpeg]>=2.34.0",
 ]

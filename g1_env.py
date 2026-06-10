@@ -39,7 +39,7 @@ from gymnasium import spaces
 # ─── Paths ────────────────────────────────────────────────────────────────────
 
 _HERE  = Path(__file__).parent
-G1_XML = _HERE / "video2robot-with-inspire/third_party/GMR/assets/unitree_g1/g1_mocap_29dof.xml"
+G1_XML = _HERE / "robot_assets/unitree_g1/g1_mocap_29dof.xml"
 
 # ─── Joint layout (must match XML actuator order) ────────────────────────────
 
@@ -93,15 +93,15 @@ G1_STAND_POSE = np.array(
 # ─── PD gains ─────────────────────────────────────────────────────────────────
 
 KP = np.array([
-    200,  80,  80,    # left  hip p/r/y
-    200,  80,  40,    # left  knee, ankle p/r
-    200,  80,  80,    # right hip p/r/y
-    200,  80,  40,    # right knee, ankle p/r
-    100,  60,  60,    # waist y/r/p
-     80,  60,  40,    # left  shoulder p/r/y
-     60,  20,  20, 20,# left  elbow + wrist r/p/y
-     80,  60,  40,    # right shoulder p/r/y
-     60,  20,  20, 20,# right elbow + wrist r/p/y
+    150,  60,  60,    # left  hip p/r/y
+    150,  60,  30,    # left  knee, ankle p/r
+    150,  60,  60,    # right hip p/r/y
+    150,  60,  30,    # right knee, ankle p/r
+     80,  40,  40,    # waist y/r/p
+     60,  40,  30,    # left  shoulder p/r/y
+     40,  15,  15, 15,# left  elbow + wrist r/p/y
+     60,  40,  30,    # right shoulder p/r/y
+     40,  15,  15, 15,# right elbow + wrist r/p/y
 ], dtype=np.float64)
 
 KD = np.array([
@@ -132,13 +132,20 @@ TORQUE_LIMITS = np.array([
 
 # ─── Reward weights ────────────────────────────────────────────────────────────
 
-W_POSE   = 0.65   # track reference angles on 10 joints
+# Convex combination — all terms in [0,1], weights sum to 1.0.
+# This guarantees per-step reward is POSITIVE so the agent always
+# prefers to stay alive. Energy is a tiny separate penalty, not part
+# of the combo, so it can never flip the step reward negative.
+W_POSE   = 0.50   # track reference angles on 10 joints
 W_VEL    = 0.10   # track reference velocities
-W_ALIVE  = 0.15   # alive bonus per step
-W_ENERGY = 0.10   # penalise torque
+W_BAL    = 0.20   # untracked joints stay near base/balance pose
+W_ALIVE  = 0.20   # flat alive bonus per step (NOT gated by balance)
+
+ENERGY_COEF  = 1e-6   # negligible torque penalty (was 1e-4 → dominated reward)
+FALL_PENALTY = 2.0    # one-time penalty applied on falling
 
 MIN_HEIGHT = 0.45   # pelvis z [m] — below this = fell
-SIM_DT     = 0.002  # inner MuJoCo timestep  (500 Hz)
+SIM_DT     = 0.0005 # inner MuJoCo timestep  (2000 Hz) — finer dt prevents NaN instability
 CTRL_HZ    = 50     # policy control frequency
 
 
@@ -285,6 +292,7 @@ class G1MotionEnv(gym.Env):
 
         # ── MuJoCo ───────────────────────────────────────────────────────
         self.model = mujoco.MjModel.from_xml_path(str(xml_path))
+        self.model.opt.timestep = SIM_DT   # apply our timestep — XML default is ignored
         self.data  = mujoco.MjData(self.model)
 
         # Scale actuator gear: ctrl=±1 → ±TORQUE_LIMITS[i] Nm
@@ -393,20 +401,26 @@ class G1MotionEnv(gym.Env):
         r_pose  = float(np.exp(-2.0  * pose_err))
         r_vel   = float(np.exp(-0.1  * vel_err))
         r_bal   = float(np.exp(-1.0  * bal_err))   # stay close to base on untracked
-        r_alive = 1.0
-        r_energy = -1e-4 * float(np.sum(torques ** 2))
+        r_alive = 1.0                              # flat — being alive is always good
 
-        # Blend: tracked joints dominate, balance stabilises untracked joints
-        total = (W_POSE   * r_pose  +
-                 W_VEL    * r_vel   +
-                 W_ALIVE  * r_alive * r_bal +   # alive only if balanced too
-                 W_ENERGY * r_energy)
+        # Convex combination → strictly positive, in [0,1].
+        # Even with terrible pose, an upright robot still earns >= W_ALIVE.
+        r_track = (W_POSE  * r_pose +
+                   W_VEL   * r_vel  +
+                   W_BAL   * r_bal  +
+                   W_ALIVE * r_alive)
+
+        # Tiny energy penalty, kept separate so it can't make the step negative.
+        energy_pen = ENERGY_COEF * float(np.sum(torques ** 2))
+
+        total = r_track - energy_pen
 
         info = {
             "r_pose":        round(float(r_pose),  4),
             "r_vel":         round(float(r_vel),   4),
             "r_balance":     round(float(r_bal),   4),
-            "r_energy":      round(float(r_energy),4),
+            "r_alive":       round(float(r_track), 4),
+            "energy_pen":    round(float(energy_pen), 4),
             "pose_err_deg":  round(float(np.degrees(np.sqrt(pose_err / max(1, len(ti))))), 2),
             "bal_err_deg":   round(float(np.degrees(np.sqrt(bal_err  / max(1, len(uti))))), 2),
         }
@@ -450,6 +464,10 @@ class G1MotionEnv(gym.Env):
             self.data.ctrl[:] = torques / TORQUE_LIMITS
             mujoco.mj_step(self.model, self.data)
             avg_torques += np.abs(torques)
+            # Catch NaN/Inf — reset immediately to avoid corrupting rollout
+            if not np.isfinite(self.data.qpos).all():
+                obs, _ = self.reset()
+                return obs, 0.0, True, False, {"nan_reset": True}
         avg_torques /= self.substeps
 
         self._ref_time   += self._ctrl_dt
@@ -466,6 +484,11 @@ class G1MotionEnv(gym.Env):
         clip_done = self._ref_time >= self._clip_len
         terminated = (fell and self.early_term) or clip_done
         truncated  = False
+
+        # One-time penalty for falling — makes terminating-by-falling strictly
+        # worse than staying up, removing any incentive to "die early".
+        if fell:
+            reward -= FALL_PENALTY
 
         info["fell"]      = bool(fell)
         info["clip_done"] = bool(clip_done)
