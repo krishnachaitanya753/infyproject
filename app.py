@@ -5,6 +5,8 @@ Run:  uvicorn app:app --reload   (or: python app.py)
 Open: http://localhost:8000
 """
 
+import asyncio
+import os
 import json
 import queue
 import threading
@@ -149,8 +151,11 @@ async def api_stream(request: Request):
             if await request.is_disconnected():
                 break
             try:
-                ev = _event_queue.get(timeout=0.5)
+                # Non-blocking poll + async sleep — a blocking queue.get() here
+                # would stall the whole event loop and freeze every other request.
+                ev = _event_queue.get_nowait()
             except queue.Empty:
+                await asyncio.sleep(0.25)
                 yield ": ping\n\n"
                 continue
 
@@ -231,8 +236,13 @@ def _rl_queue_to_sse_bridge():
             if ev["msg"] in ("ERROR",) or ev["data"].get("type") == "done":
                 break
         except queue.Empty:
-            # Check if thread finished
+            # Thread died without a final event — release the running flag so
+            # the UI doesn't stay locked out with 409s until restart.
             if _rl_thread is not None and not _rl_thread.is_alive():
+                with _state_lock:
+                    if _pipeline_state["stages"].get(6, {}).get("status") == "running":
+                        _pipeline_state["stages"][6]["status"] = "error"
+                    _pipeline_state["running"] = False
                 break
 
 
@@ -313,4 +323,15 @@ async def root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=False)
+    import socket
+    port = int(os.getenv("PORT", "8000"))
+    try:
+        lan_ip = socket.gethostbyname(socket.gethostname())
+    except Exception:
+        lan_ip = "127.0.0.1"
+    print("\n" + "=" * 52)
+    print("  Motion Pipeline server starting")
+    print(f"  Local:    http://localhost:{port}")
+    print(f"  Network:  http://{lan_ip}:{port}   (Tailscale/LAN)")
+    print("=" * 52 + "\n", flush=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)

@@ -194,7 +194,7 @@ video{width:100%;max-width:480px;border-radius:12px;border:1px solid var(--borde
     <div class="download-row">
       <a id="dl-video" class="dl-btn disabled" href="/api/download/video" download>Stick Video (.mp4)</a>
       <a id="dl-traj"  class="dl-btn disabled" href="/api/download/trajectory" download>Trajectory (.json)</a>
-      <a id="dl-policy" class="dl-btn disabled" href="/api/download/policy" download>Policy (.pt)</a>
+      <a id="dl-policy" class="dl-btn disabled" href="/api/download/policy" download>PPO Policy (.zip)</a>
     </div>
   </div>
 
@@ -212,7 +212,7 @@ var STAGE_NAMES = {
   3: "Extract Joint Angles",
   4: "Smooth & Filter Angles",
   5: "Build Stick Figure + Trajectory",
-  6: "Behavior Cloning (RL Training)"
+  6: "PPO Motion Tracking"
 };
 
 var evtSource       = null;
@@ -470,10 +470,10 @@ function startPipeline() {
   });
 }
 
-// ── Loss chart ────────────────────────────────────────────────────────────────
-var lossHistory = [];
+// ── Reward chart (PPO) ───────────────────────────────────────────────────────
+var rewardHistory = [];
 
-function drawLossChart() {
+function drawRewardChart() {
   var canvas = document.getElementById("loss-chart");
   if (!canvas) return;
   var W = canvas.offsetWidth; canvas.width = W; canvas.height = 160;
@@ -484,80 +484,74 @@ function drawLossChart() {
   ctx.fillStyle = "#12121a";
   ctx.fillRect(0, 0, W, 160);
 
-  if (lossHistory.length < 2) {
+  if (rewardHistory.length < 2) {
     ctx.fillStyle = "#555";
     ctx.font = "12px Segoe UI,sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("Loss curve will appear during training...", W / 2, 80);
+    ctx.fillText("Reward curve will appear during training...", W / 2, 80);
     return;
   }
 
-  var minL = Math.min.apply(null, lossHistory) * 0.95;
-  var maxL = Math.max.apply(null, lossHistory) * 1.05;
-  if (maxL === minL) { maxL = minL + 0.001; }
+  // Pad the range additively — multiplicative padding breaks for negatives.
+  var lo = Math.min.apply(null, rewardHistory);
+  var hi = Math.max.apply(null, rewardHistory);
+  var span = (hi - lo) || 1;
+  lo -= span * 0.08; hi += span * 0.08;
 
-  // Grid
   ctx.strokeStyle = "#2a2a38"; ctx.lineWidth = 1;
   for (var gi = 0; gi <= 4; gi++) {
     var gy = pad.t + (gi / 4) * ch;
     ctx.beginPath(); ctx.moveTo(pad.l, gy); ctx.lineTo(pad.l + cw, gy); ctx.stroke();
-    var yval = maxL - (gi / 4) * (maxL - minL);
+    var yval = hi - (gi / 4) * (hi - lo);
     ctx.fillStyle = "#555"; ctx.font = "10px Consolas,monospace"; ctx.textAlign = "right";
-    ctx.fillText(yval.toFixed(4), pad.l - 4, gy + 3);
+    ctx.fillText(yval.toFixed(2), pad.l - 4, gy + 3);
   }
 
-  // Line
   ctx.strokeStyle = "#a78bfa"; ctx.lineWidth = 2;
   ctx.beginPath();
-  for (var i = 0; i < lossHistory.length; i++) {
-    var x = pad.l + (i / (lossHistory.length - 1)) * cw;
-    var y = pad.t + ch - ((lossHistory[i] - minL) / (maxL - minL)) * ch;
+  for (var i = 0; i < rewardHistory.length; i++) {
+    var x = pad.l + (i / (rewardHistory.length - 1)) * cw;
+    var y = pad.t + ch - ((rewardHistory[i] - lo) / (hi - lo)) * ch;
     if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
   }
   ctx.stroke();
 
-  // X labels
   ctx.fillStyle = "#555"; ctx.font = "10px Consolas,monospace"; ctx.textAlign = "center";
   ctx.fillText("1", pad.l, 160 - 8);
-  ctx.fillText(String(lossHistory.length), pad.l + cw, 160 - 8);
-  ctx.fillText("Epoch", pad.l + cw / 2, 160 - 8);
+  ctx.fillText(String(rewardHistory.length), pad.l + cw, 160 - 8);
+  ctx.fillText("PPO Update", pad.l + cw / 2, 160 - 8);
+}
+
+function statCard(label, value, color) {
+  return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
+    '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">' + label + "</div>" +
+    '<div style="font-size:1.1rem;font-weight:700;color:' + color + ';">' + value + "</div></div>";
 }
 
 function updateRLStats(data) {
-  var el = document.getElementById("rl-stats");
-  el.innerHTML =
-    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
-      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Epoch</div>' +
-      '<div style="font-size:1.1rem;font-weight:700;color:var(--text);">' + (data.epoch || 0) + " / " + (data.num_epochs || "?") + "</div>" +
-    "</div>" +
-    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
-      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Loss</div>' +
-      '<div style="font-size:1.1rem;font-weight:700;color:var(--accent2);">' + (data.loss !== undefined ? data.loss.toFixed(5) : "--") + "</div>" +
-    "</div>" +
-    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
-      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Best Loss</div>' +
-      '<div style="font-size:1.1rem;font-weight:700;color:var(--success);">' + (data.best_loss !== undefined ? data.best_loss.toFixed(5) : "--") + "</div>" +
-    "</div>" +
-    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;min-width:120px;">' +
-      '<div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Progress</div>' +
-      '<div style="font-size:1.1rem;font-weight:700;color:var(--running);">' + (data.progress || 0) + "%</div>" +
-    "</div>";
+  document.getElementById("rl-stats").innerHTML =
+    statCard("Update",      data.update !== undefined ? data.update : "--", "var(--text)") +
+    statCard("Mean Reward", data.mean_reward !== undefined ? data.mean_reward.toFixed(3) : "--", "var(--accent2)") +
+    statCard("Ep Length",   data.mean_ep_len !== undefined ? data.mean_ep_len.toFixed(0) : "--", "var(--success)") +
+    statCard("Progress",    (data.progress || 0) + "%", "var(--running)") +
+    statCard("FPS",         data.fps !== undefined ? data.fps : "--", "var(--muted)");
 }
 
-// Patch handleEvent to also handle stage-6 training events
+// Patch handleEvent to also handle stage-6 PPO training events
 var _origHandleEvent = handleEvent;
 handleEvent = function(ev) {
   if (ev.stage === 6) {
     var data = ev.data || {};
-    if (ev.msg === "DONE" && data.loss_history) {
-      lossHistory = data.loss_history;
+    // Training finished — trainer signals via data.type === "done"
+    if (data.type === "done") {
+      if (data.reward_history) { rewardHistory = data.reward_history; }
       document.getElementById("rl-section").style.display = "block";
-      updateRLStats({ epoch: data.num_epochs, num_epochs: data.num_epochs,
-                      loss: data.final_loss, best_loss: data.best_loss, progress: 100 });
-      drawLossChart();
+      drawRewardChart();
       document.getElementById("dl-policy").classList.remove("disabled");
-      setBanner("success", "Training complete! Best loss: " + data.best_loss);
+      setBanner("success", "Training complete! Final mean reward: " +
+                (data.mean_final_reward !== undefined ? data.mean_final_reward : "?"));
       document.getElementById("train-btn").disabled = false;
+      appendLog("[Stage 6] " + ev.msg);
       return;
     }
     if (ev.msg === "ERROR") {
@@ -565,13 +559,15 @@ handleEvent = function(ev) {
       document.getElementById("train-btn").disabled = false;
       return;
     }
-    if (data.epoch !== undefined) {
+    // Progress update — trainer sends update/mean_reward each PPO update
+    if (data.update !== undefined) {
       document.getElementById("rl-section").style.display = "block";
-      lossHistory.push(data.loss);
+      if (data.reward_history) { rewardHistory = data.reward_history; }   // authoritative
+      else if (data.mean_reward !== undefined) { rewardHistory.push(data.mean_reward); }
       updateRLStats(data);
-      drawLossChart();
+      drawRewardChart();
     }
-    if (!data.token) { appendLog("[Stage 6] " + ev.msg); }
+    appendLog("[Stage 6] " + ev.msg);
     return;
   }
   _origHandleEvent(ev);
@@ -581,11 +577,11 @@ handleEvent = function(ev) {
 
 function startTraining() {
   setBanner(null);
-  lossHistory = [];
+  rewardHistory = [];
   document.getElementById("train-btn").disabled = true;
   document.getElementById("rl-section").style.display = "block";
   document.getElementById("rl-stats").innerHTML = "";
-  drawLossChart();
+  drawRewardChart();
 
   var cfg = {
     total_timesteps: parseInt(document.getElementById("cfg-timesteps").value) || 2000000,
@@ -608,7 +604,8 @@ function startTraining() {
       document.getElementById("train-btn").disabled = false;
       return;
     }
-    appendLog("BC training started — epochs=" + cfg.num_epochs + " lr=" + cfg.lr);
+    appendLog("PPO training started — timesteps=" + cfg.total_timesteps +
+              " envs=" + cfg.n_envs + " lr=" + cfg.lr + " device=" + cfg.device);
     evtSource = new EventSource("/api/stream");
     evtSource.onmessage = function(e) {
       var payload = JSON.parse(e.data);
@@ -627,7 +624,7 @@ function startTraining() {
   var e = {};
   for (var i = 1; i <= 6; i++) { e[i] = { status: "pending", messages: [] }; }
   renderStages(e, false);
-  drawLossChart();
+  drawRewardChart();
 })();
 </script>
 </body>

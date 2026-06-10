@@ -783,7 +783,9 @@ def stage5_build_output(all_frames: list[dict], video_path: Path,
     trajectory  = []
     for i, f in enumerate(pose_frames):
         q     = _angles_to_q(f["angles"])
-        entry = {"frame": f["frame"], "q_ref": q}
+        # fps is stored per-entry: g1_env.load_reference reads it from data[0]
+        # (without it the RL env assumes 30fps and replays the motion too fast)
+        entry = {"frame": f["frame"], "fps": fps, "q_ref": q}
 
         if i < len(pose_frames) - 1:
             nf        = pose_frames[i + 1]
