@@ -5,7 +5,6 @@ Run:  uvicorn app:app --reload   (or: python app.py)
 Open: http://localhost:8000
 """
 
-import asyncio
 import json
 import queue
 import threading
@@ -30,37 +29,37 @@ app = FastAPI(title="Motion Pipeline")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/output", StaticFiles(directory=str(OUTPUT_DIR)), name="output")
 
-# ─── SSE event queue per session (simple single-user approach) ────────────────
-_event_queue: queue.Queue = queue.Queue()
-_pipeline_state = {
-    "running": False,
-    "done":    False,
-    "error":   None,
-    "result":  None,
-    "stages":  {i: {"status": "pending", "messages": []} for i in range(1, 6)},
-}
-_state_lock = threading.Lock()
-
 STAGE_NAMES = {
     1: "Generate Video Prompt",
-    2: "Generate Video (NVIDIA Cosmos)",
+    2: "Generate Video",
     3: "Extract Joint Angles",
     4: "Smooth & Filter Angles",
     5: "Build Stick Figure + Trajectory",
-    6: "Behavior Cloning (RL Training)",
+    6: "PPO Motion Tracking",
 }
+PIPELINE_STAGES = 5                  # stages run by run_pipeline (stage 6 = RL, separate)
+TOTAL_STAGES    = len(STAGE_NAMES)   # single source of truth for stage count
+
+
+def _blank_stages():
+    return {i: {"status": "pending", "messages": []} for i in range(1, TOTAL_STAGES + 1)}
+
+
+def _fresh_state():
+    return {"running": False, "done": False, "error": None,
+            "result": None, "stages": _blank_stages()}
+
+
+# ─── SSE event queue (single shared queue → single-user / single-tab only) ────
+_event_queue: queue.Queue = queue.Queue()
+_pipeline_state = _fresh_state()
+_state_lock = threading.Lock()
 
 
 def _reset_state():
     global _pipeline_state
     with _state_lock:
-        _pipeline_state = {
-            "running": False,
-            "done":    False,
-            "error":   None,
-            "result":  None,
-            "stages":  {i: {"status": "pending", "messages": []} for i in range(1, 7)},
-        }
+        _pipeline_state = _fresh_state()
 
 
 def _progress_cb(stage: int, msg: str, data: dict):
@@ -92,7 +91,7 @@ def _run_in_thread(storyline: str, existing_video: Optional[str]):
             _pipeline_state["running"] = False
             _pipeline_state["done"]    = True
             _pipeline_state["result"]  = result
-            for s in range(1, 6):
+            for s in range(1, PIPELINE_STAGES + 1):
                 if _pipeline_state["stages"][s]["status"] == "running":
                     _pipeline_state["stages"][s]["status"] = "done"
         _event_queue.put({"stage": 0, "msg": "DONE", "data": result})
@@ -197,378 +196,6 @@ async def download_trajectory():
 
 # ─── Frontend ─────────────────────────────────────────────────────────────────
 
-_PLACEHOLDER = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Motion Pipeline</title>
-<style>
-  :root {
-    --bg: #0e0e14; --surface: #16161f; --border: #2a2a38;
-    --accent: #5b8cff; --accent2: #a78bfa;
-    --text: #e0e0f0; --muted: #6b6b8a; --success: #4ade80;
-    --warn: #facc15; --error: #f87171; --running: #60a5fa;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif;
-         min-height: 100vh; display: flex; flex-direction: column; }
-  header { padding: 20px 32px; border-bottom: 1px solid var(--border);
-           display: flex; align-items: center; gap: 14px; }
-  header .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px;
-                 background: linear-gradient(135deg, var(--accent), var(--accent2));
-                 -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  header .sub { color: var(--muted); font-size: 0.85rem; }
-  main { flex: 1; display: grid; grid-template-columns: 380px 1fr; gap: 0; }
-
-  /* ── Left panel ── */
-  .left-panel { border-right: 1px solid var(--border); padding: 28px 24px;
-                display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
-  label { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase;
-          letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
-  textarea { width: 100%; min-height: 110px; background: var(--surface); border: 1px solid var(--border);
-             border-radius: 8px; color: var(--text); font-size: 0.92rem; padding: 12px;
-             resize: vertical; outline: none; transition: border-color .2s; font-family: inherit; }
-  textarea:focus { border-color: var(--accent); }
-  input[type=text] { width: 100%; background: var(--surface); border: 1px solid var(--border);
-                     border-radius: 8px; color: var(--text); font-size: 0.88rem; padding: 10px 12px;
-                     outline: none; transition: border-color .2s; }
-  input[type=text]:focus { border-color: var(--accent); }
-  .hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
-  .btn { width: 100%; padding: 13px; border-radius: 8px; border: none; cursor: pointer;
-         font-size: 0.95rem; font-weight: 600; transition: all .2s; }
-  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
-  .btn-primary:hover:not(:disabled) { opacity: .88; transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-
-  /* ── Stage tracker ── */
-  .stages { display: flex; flex-direction: column; gap: 10px; }
-  .stage { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-           padding: 14px 16px; transition: border-color .3s, background .3s; }
-  .stage.running { border-color: var(--running); background: #1a2233; }
-  .stage.done    { border-color: var(--success); }
-  .stage.error   { border-color: var(--error); }
-  .stage-header  { display: flex; align-items: center; gap: 10px; }
-  .stage-icon    { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
-                   font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
-  .pending  .stage-icon { background: var(--border); color: var(--muted); }
-  .running  .stage-icon { background: var(--running); color: #fff; animation: pulse 1.2s infinite; }
-  .done     .stage-icon { background: var(--success); color: #0e0e14; }
-  .error    .stage-icon { background: var(--error); color: #fff; }
-  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(96,165,250,.5)} 50%{box-shadow:0 0 0 6px rgba(96,165,250,0)} }
-  .stage-name { font-size: 0.88rem; font-weight: 600; flex: 1; }
-  .stage-badge { font-size: 0.68rem; padding: 2px 8px; border-radius: 20px; font-weight: 600;
-                 text-transform: uppercase; letter-spacing: .04em; }
-  .pending .stage-badge  { background: var(--border); color: var(--muted); }
-  .running .stage-badge  { background: rgba(96,165,250,.2); color: var(--running); }
-  .done    .stage-badge  { background: rgba(74,222,128,.15); color: var(--success); }
-  .error   .stage-badge  { background: rgba(248,113,113,.15); color: var(--error); }
-  .stage-msgs { margin-top: 8px; font-size: 0.76rem; color: var(--muted);
-                max-height: 80px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
-  .stage-msgs span { line-height: 1.4; }
-
-  /* ── Right panel ── */
-  .right-panel { padding: 28px 32px; display: flex; flex-direction: column; gap: 24px;
-                 overflow-y: auto; }
-  .section-title { font-size: 0.78rem; font-weight: 700; color: var(--muted);
-                   text-transform: uppercase; letter-spacing: .07em; margin-bottom: 12px; }
-
-  /* Prompt preview */
-  .prompt-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-                padding: 16px; font-size: 0.85rem; line-height: 1.6; color: var(--text);
-                min-height: 80px; white-space: pre-wrap; word-break: break-word; }
-  .prompt-box.streaming::after { content: '▋'; animation: blink .7s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* Angle chart area */
-  .chart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; }
-  .angle-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-                padding: 14px 16px; }
-  .angle-card .jname { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 8px; }
-  .angle-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted);
-               margin-bottom: 3px; }
-  .angle-row span:last-child { color: var(--text); font-weight: 600; }
-
-  /* Downloads */
-  .download-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .dl-btn { padding: 10px 20px; border-radius: 8px; border: 1px solid var(--accent);
-            background: transparent; color: var(--accent); font-size: 0.85rem; font-weight: 600;
-            cursor: pointer; transition: all .2s; text-decoration: none; display: inline-flex;
-            align-items: center; gap: 6px; }
-  .dl-btn:hover { background: rgba(91,140,255,.1); }
-  .dl-btn:disabled, .dl-btn.disabled { opacity: .35; pointer-events: none; }
-
-  /* Video embed */
-  video { width: 100%; max-width: 480px; border-radius: 12px;
-          border: 1px solid var(--border); background: #000; }
-
-  /* Log */
-  .log { background: #0a0a10; border: 1px solid var(--border); border-radius: 10px;
-         padding: 14px; font-family: 'Consolas', monospace; font-size: 0.75rem;
-         color: #aaa; max-height: 200px; overflow-y: auto; white-space: pre-wrap;
-         word-break: break-all; line-height: 1.5; }
-
-  .empty-state { color: var(--muted); font-size: 0.88rem; text-align: center;
-                 padding: 40px 0; opacity: .6; }
-  .error-banner { background: rgba(248,113,113,.1); border: 1px solid var(--error);
-                  border-radius: 8px; padding: 12px 16px; color: var(--error); font-size: 0.85rem; }
-  .success-banner { background: rgba(74,222,128,.08); border: 1px solid var(--success);
-                    border-radius: 8px; padding: 12px 16px; color: var(--success); font-size: 0.85rem; }
-</style>
-</head>
-<body>
-<header>
-  <div>
-    <div class="logo">&#9889; Motion Pipeline</div>
-    <div class="sub">Storyline → Video → Joint Angles → Trajectory</div>
-  </div>
-</header>
-<main>
-
-<!-- Left panel: Input + Stage tracker -->
-<div class="left-panel">
-  <div>
-    <label for="storyline">Storyline</label>
-    <textarea id="storyline" placeholder="e.g. A humanoid robot walks into a factory, waves hello, and lifts a box onto a shelf."></textarea>
-  </div>
-  <div>
-    <label for="existing-video">Use existing video (optional)</label>
-    <input type="text" id="existing-video" placeholder="Path to .mp4 — skips Cosmos generation">
-    <div class="hint">Leave blank to generate via NVIDIA Cosmos.</div>
-  </div>
-  <button class="btn btn-primary" id="run-btn" onclick="startPipeline()">&#9654; Run Pipeline</button>
-
-  <div class="stages" id="stages-container"></div>
-</div>
-
-<!-- Right panel: Live output -->
-<div class="right-panel">
-
-  <div id="banner-area"></div>
-
-  <div>
-    <div class="section-title">&#128196; Generated Video Prompt</div>
-    <div class="prompt-box" id="prompt-box"><span class="empty-state">Prompt will appear here…</span></div>
-  </div>
-
-  <div id="video-section" style="display:none">
-    <div class="section-title">&#127909; Stick Figure Video</div>
-    <video id="stick-video" controls></video>
-  </div>
-
-  <div id="angles-section" style="display:none">
-    <div class="section-title">&#128260; Joint Angle Statistics</div>
-    <div class="chart-grid" id="angle-grid"></div>
-  </div>
-
-  <div>
-    <div class="section-title">&#11015; Downloads</div>
-    <div class="download-row">
-      <a id="dl-video" class="dl-btn disabled" href="/api/download/video" download>
-        &#127909; Stick Video (.mp4)
-      </a>
-      <a id="dl-traj" class="dl-btn disabled" href="/api/download/trajectory" download>
-        &#128196; Trajectory (.json)
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div class="section-title">&#128220; Live Log</div>
-    <div class="log" id="log">Waiting for pipeline to start…\n</div>
-  </div>
-
-</div>
-</main>
-
-<script>
-const STAGE_NAMES = {
-  1: "Generate Video Prompt",
-  2: "Generate Video (NVIDIA Cosmos)",
-  3: "Extract Joint Angles",
-  4: "Smooth & Filter Angles",
-  5: "Build Stick Figure + Trajectory",
-};
-
-let evtSource = null;
-let promptStreaming = false;
-let promptBuffer = "";
-
-function renderStages(stages) {
-  const container = document.getElementById("stages-container");
-  container.innerHTML = "";
-  for (let s = 1; s <= 5; s++) {
-    const info = stages[s] || { status: "pending", messages: [] };
-    const st = info.status;
-    const icon = st === "done" ? "✓" : st === "error" ? "✕" : s;
-    const badge = st.charAt(0).toUpperCase() + st.slice(1);
-    const msgs = (info.messages || []).slice(-3).map(function(m) {
-      return "<span>" + escHtml(m) + "</span>";
-    }).join("");
-    const msgsHtml = msgs ? '<div class="stage-msgs">' + msgs + "</div>" : "";
-    container.innerHTML +=
-      '<div class="stage ' + st + '">' +
-        '<div class="stage-header">' +
-          '<div class="stage-icon">' + icon + "</div>" +
-          '<div class="stage-name">' + STAGE_NAMES[s] + "</div>" +
-          '<div class="stage-badge">' + badge + "</div>" +
-        "</div>" +
-        msgsHtml +
-      "</div>";
-  }
-}
-
-function escHtml(s) {
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
-
-function appendLog(text) {
-  const el = document.getElementById("log");
-  el.textContent += text + "\n";
-  el.scrollTop = el.scrollHeight;
-}
-
-function setBanner(type, msg) {
-  const el = document.getElementById("banner-area");
-  if (!type) { el.innerHTML = ""; return; }
-  el.innerHTML = '<div class="' + type + '-banner">' + escHtml(msg) + "</div>";
-}
-
-function handleEvent(ev) {
-  const { stage, msg, data } = ev;
-
-  // Token streaming for prompt
-  if (stage === 1 && data && data.token) {
-    const box = document.getElementById("prompt-box");
-    if (!promptStreaming) {
-      promptBuffer = "";
-      promptStreaming = true;
-      box.innerHTML = "";
-      box.classList.add("streaming");
-    }
-    promptBuffer += data.token;
-    box.textContent = promptBuffer;
-    return;
-  }
-
-  if (stage === 1 && msg === "Video prompt ready." && data && data.prompt) {
-    promptStreaming = false;
-    const box = document.getElementById("prompt-box");
-    box.classList.remove("streaming");
-    box.textContent = data.prompt;
-    promptBuffer = data.prompt;
-  }
-
-  if (msg === "DONE") {
-    setBanner("success", "✓ Pipeline complete! All stages finished.");
-    document.getElementById("run-btn").disabled = false;
-    showResults(data);
-    return;
-  }
-
-  if (msg === "ERROR") {
-    setBanner("error", "✕ Pipeline error: " + (data.error || "unknown"));
-    document.getElementById("run-btn").disabled = false;
-    return;
-  }
-
-  if (!data || !data.token) {
-    appendLog("[Stage " + stage + "] " + msg);
-  }
-}
-
-function showResults(result) {
-  // Angle stats
-  const stats = result.angle_stats || {};
-  const grid = document.getElementById("angle-grid");
-  grid.innerHTML = "";
-  for (const [jname, s] of Object.entries(stats)) {
-    grid.innerHTML +=
-      '<div class="angle-card">' +
-        '<div class="jname">' + escHtml(jname) + "</div>" +
-        '<div class="angle-row"><span>Mean</span><span>' + s.mean.toFixed(1) + "\xB0</span></div>" +
-        '<div class="angle-row"><span>Std</span><span>'  + s.std.toFixed(1)  + "\xB0</span></div>" +
-        '<div class="angle-row"><span>Min</span><span>'  + s.min.toFixed(1)  + "\xB0</span></div>" +
-        '<div class="angle-row"><span>Max</span><span>'  + s.max.toFixed(1)  + "\xB0</span></div>" +
-      "</div>";
-  }
-  if (Object.keys(stats).length > 0) {
-    document.getElementById("angles-section").style.display = "block";
-  }
-
-  // Video
-  const vs = document.getElementById("video-section");
-  const vid = document.getElementById("stick-video");
-  vs.style.display = "block";
-  vid.src = "/output/stick_figure.mp4?t=" + Date.now();
-  vid.load();
-
-  // Downloads
-  document.getElementById("dl-video").classList.remove("disabled");
-  document.getElementById("dl-traj").classList.remove("disabled");
-}
-
-async function startPipeline() {
-  const storyline = document.getElementById("storyline").value.trim();
-  if (!storyline) { alert("Please enter a storyline."); return; }
-
-  const existingVideo = document.getElementById("existing-video").value.trim();
-
-  // Reset UI
-  setBanner(null);
-  document.getElementById("run-btn").disabled = true;
-  document.getElementById("log").textContent = "";
-  document.getElementById("prompt-box").innerHTML = '<span class="empty-state">Generating…</span>';
-  document.getElementById("video-section").style.display = "none";
-  document.getElementById("angles-section").style.display = "none";
-  document.getElementById("dl-video").classList.add("disabled");
-  document.getElementById("dl-traj").classList.add("disabled");
-  promptStreaming = false;
-  promptBuffer = "";
-
-  renderStages({ 1:{status:"pending",messages:[]}, 2:{status:"pending",messages:[]},
-                 3:{status:"pending",messages:[]}, 4:{status:"pending",messages:[]},
-                 5:{status:"pending",messages:[]} });
-
-  // Close existing SSE
-  if (evtSource) { evtSource.close(); evtSource = null; }
-
-  // Start pipeline
-  const resp = await fetch("/api/run", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ storyline, existing_video: existingVideo || null }),
-  });
-  const rdata = await resp.json();
-  if (rdata.error) {
-    setBanner("error", rdata.error);
-    document.getElementById("run-btn").disabled = false;
-    return;
-  }
-
-  appendLog("Pipeline started…");
-
-  // Open SSE stream
-  evtSource = new EventSource("/api/stream");
-  evtSource.onmessage = (e) => {
-    const payload = JSON.parse(e.data);
-    if (payload.type === "state") {
-      renderStages(payload.payload.stages);
-    } else if (payload.type === "event") {
-      handleEvent(payload.payload);
-      // Re-fetch state to keep stage tracker fresh
-      fetch("/api/state").then(r => r.json()).then(s => renderStages(s.stages));
-    }
-  };
-  evtSource.onerror = () => {
-    appendLog("[SSE] Connection lost.");
-    if (evtSource) { evtSource.close(); evtSource = null; }
-  };
-}
-</script>
-</body>
-</html>
-"""
 
 
 _rl_queue: Optional[queue.Queue] = None
@@ -669,10 +296,9 @@ async def api_train_status():
 
 @app.get("/api/download/policy")
 async def download_policy():
-    for name in ["ppo_final.zip", "policy_best.pt"]:
-        p = RL_OUTPUT_DIR / name
-        if p.exists():
-            return FileResponse(str(p), filename=p.name)
+    p = RL_OUTPUT_DIR / "ppo_final.zip"
+    if p.exists():
+        return FileResponse(str(p), filename=p.name)
     return JSONResponse({"error": "No policy trained yet."}, status_code=404)
 
 
