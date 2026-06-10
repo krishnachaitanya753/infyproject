@@ -13,13 +13,13 @@ Each stage emits progress via an optional callback:
 """
 
 import os
-import io
 import cv2
 import json
 import time
 import base64
 import urllib.request
 import numpy as np
+import imageio.v2 as imageio
 import requests as http_requests
 from pathlib import Path
 from typing import Callable, Optional
@@ -165,6 +165,13 @@ CANVAS_H  = 960
 MARGIN    = 0.10
 FONT      = cv2.FONT_HERSHEY_SIMPLEX
 
+# Stage-4 smoothing: clip each joint's angle to ±this many degrees around its
+# median before filtering, to reject MediaPipe spikes.
+OUTLIER_CLIP_DEG = 40.0
+# G1 has no direct ankle-pitch readout from 2D pose; approximate it as a fixed
+# fraction of knee flexion so the foot stays roughly flat as the knee bends.
+ANKLE_KNEE_COUPLING = -0.5
+
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def _emit(cb: Optional[Callable], stage: int, msg: str, data: dict = None):
@@ -175,6 +182,35 @@ def _emit(cb: Optional[Callable], stage: int, msg: str, data: dict = None):
 def _ensure_model():
     if not MODEL_PATH.exists():
         urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+
+
+def _make_landmarker():
+    """Create a configured PoseLandmarker (single source of options)."""
+    _ensure_model()
+    opts = mp_vision.PoseLandmarkerOptions(
+        base_options=mp_python.BaseOptions(model_asset_path=str(MODEL_PATH)),
+        running_mode=mp_vision.RunningMode.VIDEO,
+        num_poses=1,
+        min_pose_detection_confidence=0.5,
+        min_pose_presence_confidence=0.5,
+        min_tracking_confidence=0.5,
+    )
+    return mp_vision.PoseLandmarker.create_from_options(opts)
+
+
+class _LM:
+    """Lightweight landmark with the attributes the renderer/angle code needs."""
+    __slots__ = ("x", "y", "z", "visibility")
+
+    def __init__(self, d):
+        self.x, self.y, self.z = d["x"], d["y"], d["z"]
+        self.visibility = d["visibility"]
+
+
+def _restore_landmarks(frame_dict):
+    """Rebuild landmark objects from the data already stored in stage 3."""
+    lms = frame_dict.get("landmarks")
+    return [_LM(d) for d in lms] if lms else None
 
 
 def _angle3pt(a, v, b):
@@ -194,16 +230,66 @@ def _compute_angles(lms):
     return angles
 
 
-def _landmarks_to_pixels(lms, w, h, margin=MARGIN):
-    xs = np.array([l.x for l in lms])
-    ys = np.array([l.y for l in lms])
-    xr = xs.max() - xs.min() or 1.0
-    yr = ys.max() - ys.min() or 1.0
+def _angles_to_q(a: dict) -> dict:
+    """Map the 8 extracted MediaPipe angles (deg) → 10 G1 joint targets (rad)."""
+    q = {
+        "left_knee":            float(np.deg2rad(a.get("L knee", 0))),
+        "right_knee":           float(np.deg2rad(a.get("R knee", 0))),
+        "left_elbow":           float(np.deg2rad(a.get("L elbow", 0))),
+        "right_elbow":          float(np.deg2rad(a.get("R elbow", 0))),
+        "left_hip_pitch":       float(np.deg2rad(-(180 - a.get("L hip", 180)))),
+        "right_hip_pitch":      float(np.deg2rad(-(180 - a.get("R hip", 180)))),
+        "left_shoulder_pitch":  float(np.deg2rad(a.get("L shoulder", 90) - 90)),
+        "right_shoulder_pitch": float(np.deg2rad(a.get("R shoulder", 90) - 90)),
+    }
+    q["left_ankle_pitch"]  = ANKLE_KNEE_COUPLING * q["left_knee"]
+    q["right_ankle_pitch"] = ANKLE_KNEE_COUPLING * q["right_knee"]
+    return q
+
+
+def _clip_scale(all_frames, w, h, margin=MARGIN):
+    """One fixed scale for the whole clip so the figure doesn't 'breathe'.
+
+    Uses the median per-frame body extent (robust to a few bad frames) so the
+    rendered skeleton keeps a constant size instead of pulsing with each frame's
+    own bounding box.
+    """
+    xrs, yrs = [], []
+    for f in all_frames:
+        lms = f.get("landmarks")
+        if not lms:
+            continue
+        xs = [d["x"] for d in lms]
+        ys = [d["y"] for d in lms]
+        xrs.append(max(xs) - min(xs))
+        yrs.append(max(ys) - min(ys))
+    if not yrs:
+        return 1.0
+    xr = float(np.median(xrs)) or 1.0
+    yr = float(np.median(yrs)) or 1.0
     uw = w * (1 - 2 * margin)
     uh = h * (1 - 2 * margin)
-    scale = min(uw / xr, uh / yr)
-    px = (xs - xs.min()) * scale + (w - xr * scale) / 2
-    py = (ys - ys.min()) * scale + (h - yr * scale) / 2 + h * 0.03
+    return min(uw / xr, uh / yr)
+
+
+def _landmarks_to_pixels(lms, w, h, scale=None, margin=MARGIN):
+    xs = np.array([l.x for l in lms])
+    ys = np.array([l.y for l in lms])
+
+    if scale is None:
+        # Legacy per-frame fit (kept for any standalone callers).
+        xr = xs.max() - xs.min() or 1.0
+        yr = ys.max() - ys.min() or 1.0
+        scale = min(w * (1 - 2 * margin) / xr, h * (1 - 2 * margin) / yr)
+        px = (xs - xs.min()) * scale + (w - xr * scale) / 2
+        py = (ys - ys.min()) * scale + (h - yr * scale) / 2 + h * 0.03
+        return np.stack([px, py], axis=1)
+
+    # Fixed scale + hip-anchored centring → stable size and position.
+    hx = (xs[LM["left_hip"]] + xs[LM["right_hip"]]) / 2
+    hy = (ys[LM["left_hip"]] + ys[LM["right_hip"]]) / 2
+    px = (xs - hx) * scale + w / 2
+    py = (ys - hy) * scale + h * 0.55
     return np.stack([px, py], axis=1)
 
 
@@ -218,7 +304,7 @@ def _draw_arc(canvas, vp, ap, bp, ang, radius=22, color=(220,220,220)):
                 0, -start, -start + sweep, color, 1, cv2.LINE_AA)
 
 
-def _render_frame(lms, frame_idx, fps, smoothed_angles=None,
+def _render_frame(lms, frame_idx, fps, smoothed_angles=None, scale=None,
                   canvas_w=CANVAS_W, canvas_h=CANVAS_H):
     canvas = np.full((canvas_h, canvas_w, 3), BG_COLOR, dtype=np.uint8)
     for x in range(0, canvas_w, 60):
@@ -231,7 +317,7 @@ def _render_frame(lms, frame_idx, fps, smoothed_angles=None,
                     FONT, 0.8, (100,100,100), 1, cv2.LINE_AA)
         return canvas
 
-    pts = _landmarks_to_pixels(lms, canvas_w, canvas_h)
+    pts = _landmarks_to_pixels(lms, canvas_w, canvas_h, scale=scale)
     vis = np.array([l.visibility if hasattr(l,"visibility") and l.visibility is not None
                     else 0.0 for l in lms])
 
@@ -523,8 +609,7 @@ def _stage2_runway(prompt: str, out_path: Path, cb: Optional[Callable]) -> Path:
         "X-Runway-Version": "2024-11-06",
     }
     submit = http_requests.post(
-        "https://api.dev.runwayml.com/v1/image_to_video"
-        if False else "https://api.dev.runwayml.com/v1/text_to_video",
+        "https://api.dev.runwayml.com/v1/text_to_video",
         headers=headers,
         json={"model": RUNWAY_MODEL, "promptText": prompt, "duration": 5,
               "ratio": "1280:720"},
@@ -578,14 +663,13 @@ def stage2_generate_video(prompt: str, out_path: Path, cb: Optional[Callable] = 
             raise RuntimeError("RUNWAY_API_KEY not set in .env")
         return _stage2_runway(prompt, out_path, cb)
     else:
-        raise ValueError(f"Unknown VIDEO_PROVIDER '{provider}'. Use: hf | fal | runway")
+        raise ValueError(f"Unknown VIDEO_PROVIDER '{provider}'. Use: veo | hf | fal | runway")
 
 
 # ─── Stage 3: Video → Raw Joint Angles ───────────────────────────────────────
 
 def stage3_extract_angles(video_path: Path, cb: Optional[Callable] = None) -> list[dict]:
     _emit(cb, 3, "Loading MediaPipe pose model…")
-    _ensure_model()
 
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
@@ -594,18 +678,8 @@ def stage3_extract_angles(video_path: Path, cb: Optional[Callable] = None) -> li
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     _emit(cb, 3, f"Opened video: {total} frames @ {fps:.1f} fps", {"total_frames": total})
 
-    base_opts = mp_python.BaseOptions(model_asset_path=str(MODEL_PATH))
-    opts = mp_vision.PoseLandmarkerOptions(
-        base_options=base_opts,
-        running_mode=mp_vision.RunningMode.VIDEO,
-        num_poses=1,
-        min_pose_detection_confidence=0.5,
-        min_pose_presence_confidence=0.5,
-        min_tracking_confidence=0.5,
-    )
-
     all_frames = []
-    with mp_vision.PoseLandmarker.create_from_options(opts) as lmk:
+    with _make_landmarker() as lmk:
         fidx = 0
         while True:
             ret, frame = cap.read()
@@ -657,7 +731,7 @@ def stage4_smooth_angles(all_frames: list[dict], cb: Optional[Callable] = None) 
     for name in ANGLE_NAMES:
         vals = np.array([f["angles"].get(name, 0.0) for f in pose_frames], dtype=float)
         median = np.median(vals)
-        vals   = np.clip(vals, median - 40, median + 40)         # outlier clip
+        vals   = np.clip(vals, median - OUTLIER_CLIP_DEG, median + OUTLIER_CLIP_DEG)
         vals   = savgol_filter(vals, window_length=window, polyorder=polyord)
         for i, v in enumerate(vals):
             pose_frames[i]["angles"][name] = float(v)
@@ -684,88 +758,38 @@ def stage5_build_output(all_frames: list[dict], video_path: Path,
     fps    = sample["fps"] if sample else 30.0
     total  = len(all_frames)
 
-    # Re-open source video to get landmarks for rendering
-    cap = cv2.VideoCapture(str(video_path))
-    if not cap.isOpened():
-        raise FileNotFoundError(f"Cannot re-open: {video_path}")
-
-    writer = cv2.VideoWriter(
-        str(stick_path),
-        cv2.VideoWriter_fourcc(*"mp4v"),
-        fps, (CANVAS_W, CANVAS_H),
-    )
-
     smoothed_by_frame = {f["frame"]: f["angles"] for f in all_frames if f["has_pose"]}
+    scale = _clip_scale(all_frames, CANVAS_W, CANVAS_H)   # fixed size for whole clip
 
-    base_opts = mp_python.BaseOptions(model_asset_path=str(MODEL_PATH))
-    opts = mp_vision.PoseLandmarkerOptions(
-        base_options=base_opts,
-        running_mode=mp_vision.RunningMode.VIDEO,
-        num_poses=1,
-        min_pose_detection_confidence=0.5,
-        min_pose_presence_confidence=0.5,
-        min_tracking_confidence=0.5,
+    # Render directly from the landmarks stored in stage 3 — no second MediaPipe
+    # pass, no video re-decode. Write H.264 + yuv420p so the <video> tag can play it.
+    writer = imageio.get_writer(
+        str(stick_path), fps=fps, codec="libx264", quality=8,
+        macro_block_size=None,
+        ffmpeg_params=["-pix_fmt", "yuv420p", "-movflags", "+faststart"],
     )
-
-    with mp_vision.PoseLandmarker.create_from_options(opts) as lmk:
-        fidx = 0
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                break
-            ts_ms  = int(fidx / fps * 1000)
-            rgb    = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
-            result = lmk.detect_for_video(mp_img, ts_ms)
-            lms    = result.pose_landmarks[0] if result.pose_landmarks else None
-
-            sa = smoothed_by_frame.get(fidx) if lms is not None else None
-            canvas = _render_frame(lms, fidx, fps, smoothed_angles=sa)
-            writer.write(canvas)
-
-            if fidx % 30 == 0:
-                pct = int(fidx / max(total,1) * 100)
-                _emit(cb, 5, f"Rendering… {fidx}/{total}", {"progress": pct})
-            fidx += 1
-
-    cap.release()
-    writer.release()
+    for f in all_frames:
+        lms    = _restore_landmarks(f)
+        sa     = smoothed_by_frame.get(f["frame"]) if lms is not None else None
+        canvas = _render_frame(lms, f["frame"], fps, smoothed_angles=sa, scale=scale)
+        writer.append_data(canvas[:, :, ::-1])   # BGR (OpenCV) → RGB (imageio)
+        if f["frame"] % 30 == 0:
+            pct = int(f["frame"] / max(total, 1) * 100)
+            _emit(cb, 5, f"Rendering… {f['frame']}/{total}", {"progress": pct})
+    writer.close()
 
     # Build trajectory JSON
     pose_frames = [f for f in all_frames if f["has_pose"]]
     trajectory  = []
     for i, f in enumerate(pose_frames):
-        a = f["angles"]
-        q = {
-            "left_knee":            float(np.deg2rad(a.get("L knee", 0))),
-            "right_knee":           float(np.deg2rad(a.get("R knee", 0))),
-            "left_elbow":           float(np.deg2rad(a.get("L elbow", 0))),
-            "right_elbow":          float(np.deg2rad(a.get("R elbow", 0))),
-            "left_hip_pitch":       float(np.deg2rad(-(180 - a.get("L hip", 180)))),
-            "right_hip_pitch":      float(np.deg2rad(-(180 - a.get("R hip", 180)))),
-            "left_shoulder_pitch":  float(np.deg2rad(a.get("L shoulder", 90) - 90)),
-            "right_shoulder_pitch": float(np.deg2rad(a.get("R shoulder", 90) - 90)),
-        }
-        q["left_ankle_pitch"]  = -0.5 * q["left_knee"]
-        q["right_ankle_pitch"] = -0.5 * q["right_knee"]
+        q     = _angles_to_q(f["angles"])
         entry = {"frame": f["frame"], "q_ref": q}
 
         if i < len(pose_frames) - 1:
-            nf    = pose_frames[i+1]
-            nq    = {
-                "left_knee":            float(np.deg2rad(nf["angles"].get("L knee", 0))),
-                "right_knee":           float(np.deg2rad(nf["angles"].get("R knee", 0))),
-                "left_elbow":           float(np.deg2rad(nf["angles"].get("L elbow", 0))),
-                "right_elbow":          float(np.deg2rad(nf["angles"].get("R elbow", 0))),
-                "left_hip_pitch":       float(np.deg2rad(-(180 - nf["angles"].get("L hip", 180)))),
-                "right_hip_pitch":      float(np.deg2rad(-(180 - nf["angles"].get("R hip", 180)))),
-                "left_shoulder_pitch":  float(np.deg2rad(nf["angles"].get("L shoulder", 90) - 90)),
-                "right_shoulder_pitch": float(np.deg2rad(nf["angles"].get("R shoulder", 90) - 90)),
-            }
-            nq["left_ankle_pitch"]  = -0.5 * nq["left_knee"]
-            nq["right_ankle_pitch"] = -0.5 * nq["right_knee"]
+            nf        = pose_frames[i + 1]
+            nq        = _angles_to_q(nf["angles"])
             frame_gap = nf["frame"] - f["frame"]
-            dt = frame_gap / fps if frame_gap > 0 else 1.0 / fps
+            dt        = frame_gap / fps if frame_gap > 0 else 1.0 / fps
             entry["qvel_ref"] = {j: (nq[j] - q[j]) / dt for j in q}
         else:
             entry["qvel_ref"] = {j: 0.0 for j in q}
@@ -774,22 +798,23 @@ def stage5_build_output(all_frames: list[dict], video_path: Path,
 
     traj_path.write_text(json.dumps(trajectory, indent=2))
 
+    # Per-joint stats — gather each joint's values once, then reduce
+    angle_stats = {}
+    for name in ANGLE_NAMES:
+        arr = np.array([f["angles"][name] for f in pose_frames if name in f["angles"]])
+        if arr.size:
+            angle_stats[name] = {
+                "mean": float(arr.mean()), "std": float(arr.std()),
+                "min":  float(arr.min()),  "max": float(arr.max()),
+            }
+
     summary = {
-        "stick_video": str(stick_path),
-        "trajectory":  str(traj_path),
+        "stick_video":  str(stick_path),
+        "trajectory":   str(traj_path),
         "total_frames": total,
         "pose_frames":  len(pose_frames),
-        "joints": ANGLE_NAMES,
-        "angle_stats": {
-            name: {
-                "mean": float(np.mean([f["angles"][name] for f in pose_frames if name in f["angles"]])),
-                "std":  float(np.std( [f["angles"][name] for f in pose_frames if name in f["angles"]])),
-                "min":  float(np.min( [f["angles"][name] for f in pose_frames if name in f["angles"]])),
-                "max":  float(np.max( [f["angles"][name] for f in pose_frames if name in f["angles"]])),
-            }
-            for name in ANGLE_NAMES
-            if any(name in f["angles"] for f in pose_frames)
-        }
+        "joints":       ANGLE_NAMES,
+        "angle_stats":  angle_stats,
     }
 
     _emit(cb, 5, "Pipeline complete!", summary)
